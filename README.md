@@ -7,6 +7,16 @@ Each week covers a new project with focused learning goals, and all source code 
 
 ---
 
+## 🧰 How to Run Any Week's Project
+
+```bash
+git clone https://github.com/YOUR_USERNAME/flutter-projects-60day-challenge.git
+cd Week\ X/ProjectName
+flutter pub get
+flutter run
+```
+---
+
 ## 📅 Weekly Roadmap
 
 | Week | Project | Learning Goals | Status |
@@ -24,23 +34,16 @@ Each week covers a new project with focused learning goals, and all source code 
 
 **Goal:** Build a simple profile UI and learn the basics of Flutter.
 
-| Output Screenshot |
-|-------------------|
-| ![Week 1 Output](./Week%201/ProfileCardUI/screenshots/output.png) |
+### 🖼️ Output Screenshot
+| Profile Card UI |
+|-----------------|
+| <img src="./Week%201/ProfileCardUI/screenshots/output.png" width="450" height="400" /> |
 
 📂 Project Folder: [`Week 1/ProfileCardUI`](./Week%201/ProfileCardUI)  
 📖 Detailed Progress: See [Week 1 README](./Week%201/ProfileCardUI/README.md)
 
 ---
 
-## 🧰 How to Run Any Week's Project
-
-```bash
-git clone https://github.com/YOUR_USERNAME/flutter-projects-60day-challenge.git
-cd Week\ X/ProjectName
-flutter pub get
-flutter run
-```
 ## 🔄 Daily Code Updates
 
 I commit my code **daily**, even before the final version is ready.  
