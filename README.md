@@ -37,7 +37,7 @@ flutter run
 ### 🖼️ Output Screenshot
 | Profile Card UI |
 |-----------------|
-| <img src="./Week%201/ProfileCardUI/screenshots/output.png" width="450" height="400" /> |
+| <img src="./Outputs/Week1.png" width="450" height="400" /> |
 
 📂 Project Folder: [`Week 1/ProfileCardUI`](./Week%201/ProfileCardUI)  
 📖 Detailed Progress: See [Week 1 README](./Week%201/ProfileCardUI/README.md)
