@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
 
-class MyUi extends StatelessWidget {
+class MyUi extends StatefulWidget {
   const MyUi({super.key});
+
+  @override
+  State<MyUi> createState() => _MyUiState();
+}
+
+class _MyUiState extends State<MyUi> {
+  String btntext =
+      "Follow"; // This is initail value means runs only for the first time and after that it will not run
+  void btntxtFtn() {
+    setState(() {
+      btntext =
+          btntext == "Follow"
+              ? "Unfollow"
+              : "Follow"; // here we are seeing is the current value of variable btntext is equal to Follow or not if it is then we will change the value to Unfollow and if it is not then we will change the value to Follow
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +81,11 @@ class MyUi extends StatelessWidget {
                 ),
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed:
-                      () {}, // this is the function that will be called when the button is pressed
+                  onPressed: () {
+                    btntxtFtn();
+                  }, // this is the function that will be called when the button is pressed
                   child: Text(
-                    "Follow",
+                    btntext,
                     style: TextStyle(
                       color: Colors.green,
                       fontWeight:
