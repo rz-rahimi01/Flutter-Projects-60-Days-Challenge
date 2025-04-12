@@ -34,19 +34,31 @@ class _MyUiState extends State<MyUi> {
             //   horizontal: 20,
             // ),  this will add padding to the top and bottom
             padding: EdgeInsets.all(20),
-            color: Colors.lightBlue,
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(color: Colors.black, blurRadius: 50, spreadRadius: 1),
+              ],
+              gradient: LinearGradient(
+                colors: [Colors.blue, Colors.lightBlueAccent],
+              ),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(color: Colors.black, width: 2),
+            ),
+
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
-
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
                       decoration: BoxDecoration(
-                        shape: BoxShape.circle,
+                        //shape: BoxShape.circle,
+                        borderRadius: BorderRadius.circular(
+                          50,
+                        ), // use any of these two either above one or below one
                         border: Border.all(color: Colors.black, width: 2),
                       ),
 
@@ -61,7 +73,7 @@ class _MyUiState extends State<MyUi> {
                       child: Text(
                         "John Doe",
                         style: TextStyle(
-                          fontSize: 25,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
                         textAlign: TextAlign.center,
@@ -80,17 +92,36 @@ class _MyUiState extends State<MyUi> {
                           .ellipsis, // adds the dots when the max lines limits reaches
                 ),
                 SizedBox(height: 20),
-                ElevatedButton(
+                ElevatedButton.icon(
                   onPressed: () {
                     btntxtFtn();
                   }, // this is the function that will be called when the button is pressed
-                  child: Text(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 5,
+                    shadowColor: Colors.deepPurpleAccent,
+                    // iconAlignment: IconAlignment.end, // this will align the icon to the end of the button means after the text
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: BorderSide(
+                        color: Colors.black,
+                        width: 2,
+                      ), // here side is used in place of like we add border in the box decoration
+                    ),
+                  ),
+                  label: Text(
                     btntext,
                     style: TextStyle(
-                      color: Colors.green,
+                      color: Colors.black,
                       fontWeight:
                           FontWeight.w900, //used for the boldness of the text
                     ),
+                  ),
+                  icon: Icon(
+                    btntext == "Follow"
+                        ? Icons.add
+                        : Icons
+                            .exit_to_app_rounded, // this will show the icon according to the value of btntext
+                    color: Colors.black,
                   ),
                 ),
               ],
