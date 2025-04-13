@@ -36,7 +36,7 @@ class _MyUiState extends State<MyUi> {
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
               boxShadow: [
-                BoxShadow(color: Colors.black, blurRadius: 50, spreadRadius: 1),
+                BoxShadow(color: Colors.black, blurRadius: 25, spreadRadius: 1),
               ],
               gradient: LinearGradient(
                 colors: [Colors.blue, Colors.lightBlueAccent],
@@ -57,14 +57,14 @@ class _MyUiState extends State<MyUi> {
                       decoration: BoxDecoration(
                         //shape: BoxShape.circle,
                         borderRadius: BorderRadius.circular(
-                          50,
+                          45,
                         ), // use any of these two either above one or below one
                         border: Border.all(color: Colors.black, width: 2),
                       ),
 
                       child: CircleAvatar(
                         foregroundImage: AssetImage("assets/profile.jpg"),
-                        radius: 50,
+                        radius: 45,
                         child: Text("Profile Photo"),
                         //we usded the foreground because if incase the image is not found the text will be shown
                       ),
@@ -101,7 +101,7 @@ class _MyUiState extends State<MyUi> {
                     shadowColor: Colors.deepPurpleAccent,
                     // iconAlignment: IconAlignment.end, // this will align the icon to the end of the button means after the text
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(25),
                       side: BorderSide(
                         color: Colors.black,
                         width: 2,
