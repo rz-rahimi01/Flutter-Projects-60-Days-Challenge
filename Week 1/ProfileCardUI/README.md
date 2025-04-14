@@ -52,7 +52,7 @@ This week's goal was to build a clean and responsive **Profile Card UI** to lear
 
 | Profile Card UI |
 |-----------------|
-| <img src="../../Outputs/Week1.png"  width="500" /> |
+| <img src="../../Outputs/Week 1.png"  width="200" height = "400" /> |
 
 ---
 
