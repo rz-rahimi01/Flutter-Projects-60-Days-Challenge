@@ -1,5 +1,5 @@
 
-# 📱 Week 2 - ToDo App
+# 📱 Week 2 - To Do App
 
 Welcome to Week 2 of my **60 Days Flutter Challenge**!  
 This week, I focused on creating a **To-Do List App** to practice user input, managing dynamic lists, and handling simple app logic using `setState` (and optionally `Provider`).

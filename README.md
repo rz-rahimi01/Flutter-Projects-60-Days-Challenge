@@ -58,7 +58,7 @@ By the end of the week, each project will be complete, with screenshots and docu
 ### 🖼️ Output Screenshot
 | Profile Card UI |
 |-----------------|
-| <img src="./Outputs/Week1.png" width="450" height="400" /> |
+| <img src="./Outputs/Week 1.png" width="200" height="400" /> |
 
 📂 Project Folder: [`Week 1/ProfileCardUI`](./Week%201/ProfileCardUI)  
 📖 Detailed Progress: See [Week 1 README](./Week%201/ProfileCardUI/README.md)
@@ -72,7 +72,7 @@ By the end of the week, each project will be complete, with screenshots and docu
 ### 🖼️ Output Screenshot
 | To Do App |
 |-----------------|
-| <img src="./Outputs/Week2.png" width="450" height="400" /> |
+| <img src="./Outputs/Week2.png" width="200" height="400" /> |
 
 📂 Project Folder: [`Week 2/ToDoApp`](./Week%202/ToDoApp)  
 📖 Detailed Progress: See [Week 2 README](./Week%202/ToDoApp/README.md)
