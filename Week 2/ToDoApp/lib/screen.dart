@@ -8,6 +8,9 @@ class Todoapp extends StatefulWidget {
 }
 
 class _TodoappState extends State<Todoapp> {
+  int itemnbr = 0;
+  List itemValues = [];
+
   TextEditingController mycontroller = TextEditingController();
 
   void clearing() {
@@ -25,9 +28,12 @@ class _TodoappState extends State<Todoapp> {
         ),
       );
     } else {
-      // ignore: avoid_print
-      print(mycontroller.text);
-    } //takes text from the controller and prints it
+      setState(() {
+        itemnbr++;
+        itemValues.add(mycontroller.text);
+        mycontroller.clear();
+      });
+    }
   }
 
   @override
@@ -71,8 +77,20 @@ class _TodoappState extends State<Todoapp> {
                 side: BorderSide(color: Colors.black),
               ),
             ),
-            label: Text("Print"),
-            icon: Icon(Icons.print),
+            label: Text("Add "),
+            icon: Icon(Icons.add),
+          ),
+          Expanded(
+            child: ListView.separated(
+              // the benefit of the separated is that it gives a space between the list
+              // the listview.separated is used to create a listview with a separator between each item
+              separatorBuilder:
+                  (context, index) => Divider(color: Colors.purpleAccent),
+              itemCount: itemValues.length,
+              itemBuilder: (context, index) {
+                return ListTile(title: Text(itemValues[index]));
+              },
+            ),
           ),
         ],
       ),
