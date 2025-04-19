@@ -60,7 +60,7 @@ This week, I focused on creating a **To-Do List App** to practice user input, ma
 
 | To-Do List App |
 |----------------|
-| <img src="../../Outputs/Week2.png" width="250" height="500" /> |
+| <img src="../../Outputs/Week 2.png" width="250" height="500" /> |
 
 ---
 
