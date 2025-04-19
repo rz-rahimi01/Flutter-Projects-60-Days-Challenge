@@ -72,7 +72,7 @@ By the end of the week, each project will be complete, with screenshots and docu
 ### 🖼️ Output Screenshot
 | To Do App |
 |-----------------|
-| <img src="./Outputs/Week2.png" width="200" height="400" /> |
+| <img src="./Outputs/Week 2.png" width="200" height="400" /> |
 
 📂 Project Folder: [`Week 2/ToDoApp`](./Week%202/ToDoApp)  
 📖 Detailed Progress: See [Week 2 README](./Week%202/ToDoApp/README.md)
