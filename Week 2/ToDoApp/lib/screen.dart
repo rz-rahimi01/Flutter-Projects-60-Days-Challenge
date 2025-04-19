@@ -82,13 +82,31 @@ class _TodoappState extends State<Todoapp> {
           ),
           Expanded(
             child: ListView.separated(
+              key: ValueKey(itemValues.length), // Add a key to track changes
               // the benefit of the separated is that it gives a space between the list
               // the listview.separated is used to create a listview with a separator between each item
               separatorBuilder:
                   (context, index) => Divider(color: Colors.purpleAccent),
               itemCount: itemValues.length,
               itemBuilder: (context, index) {
-                return ListTile(title: Text(itemValues[index]));
+                return Dismissible(
+                  key: ValueKey(itemValues[index]),
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Icon(Icons.delete, color: Colors.white),
+                    ),
+                  ),
+                  direction: DismissDirection.endToStart,
+                  onDismissed: (DismissDirection direction) {
+                    setState(() {
+                      itemValues.removeAt(index);
+                    });
+                  },
+                  child: ListTile(title: Text(itemValues[index])),
+                );
               },
             ),
           ),
