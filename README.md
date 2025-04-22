@@ -87,8 +87,8 @@ By the end of the week, each project will be complete, with screenshots and docu
 |-----------------|
 | <img src="./Outputs/Week 3.png" width="200" height="400" /> |
 
-📂 Project Folder: [`Week 3/QuotesApp`](./Week%301/QuotesApp)  
-📖 Detailed Progress: See [Week 3 README](./Week%301/QuotesApp/README.md)
+📂 Project Folder: [`Week 3/QuotesApp`](./Week%203/QuotesApp)  
+📖 Detailed Progress: See [Week 3 README](./Week%203/QuotesApp/README.md)
 
 
 ---
