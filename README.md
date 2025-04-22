@@ -44,12 +44,13 @@ By the end of the week, each project will be complete, with screenshots and docu
 
 | Week | Project | Learning Goals | Status |
 |------|---------|----------------|--------|
-|  Week 1 | [Profile Card UI](./Week%201/ProfileCardUI) | Dart, widgets, layout, styling | Completed ✅ |
-| 🔜 Week 2 | [To Do App](./Week%202/ToDoApp) | Text input, ListView, setState, Provider | In Progress |
-| Week 3 | Quotes App | Navigation, theme toggle, Provider | Upcoming |
+| Week 1 | [Profile Card UI](./Week%201/ProfileCardUI) | Dart, widgets, layout, styling | Completed ✅ |
+| Week 2 | [To Do App](./Week%202/ToDoApp) | Text input, ListView, setState, Provider | Completed ✅ |
+| 🔜 Week 3 | [Quotes App](./Week%203/QuotesApp) | Navigation, theme toggle, Provider | In Progress |
 | Week 4 | Login + Firebase Auth | Firebase basics, Provider | Upcoming |
 | Week 5–8 | Expense Tracker App | Full App: Auth, Firestore, CRUD, charts, UI | Upcoming |
 | Week 9 | Polish & Deploy | Testing, Deployment, GitHub Docs | Upcoming |
+
 ---
 ## 📌 Week 1 – Profile Card UI
 
@@ -63,10 +64,9 @@ By the end of the week, each project will be complete, with screenshots and docu
 📂 Project Folder: [`Week 1/ProfileCardUI`](./Week%201/ProfileCardUI)  
 📖 Detailed Progress: See [Week 1 README](./Week%201/ProfileCardUI/README.md)
 
-
 ---
 
-## 📌 Week 2 – To DO App
+## 📌 Week 2 – To Do App
 **Goal:** Build a To Do App and step forward in the development of Flutter.
 
 ### 🖼️ Output Screenshot
@@ -76,6 +76,20 @@ By the end of the week, each project will be complete, with screenshots and docu
 
 📂 Project Folder: [`Week 2/ToDoApp`](./Week%202/ToDoApp)  
 📖 Detailed Progress: See [Week 2 README](./Week%202/ToDoApp/README.md)
+
+---
+## 📌 Week 3 – Quotes App
+
+**Goal:** Build a Quotes App to practice navigation, theme toggling (light/dark mode), and state management using Provider more deeply.
+
+### 🖼️ Output Screenshot
+| Quotes App |
+|-----------------|
+| <img src="./Outputs/Week 3.png" width="200" height="400" /> |
+
+📂 Project Folder: [`Week 3/QuotesApp`](./Week%301/QuotesApp)  
+📖 Detailed Progress: See [Week 3 README](./Week%301/QuotesApp/README.md)
+
 
 ---
 
