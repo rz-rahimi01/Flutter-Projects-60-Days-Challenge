@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todoapp/provider/task_provider.dart';
 
@@ -26,7 +27,18 @@ class _TodoappState extends State<Todoapp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("My Todo App")),
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: Text("My Todo App"),
+        backgroundColor: Colors.white,
+        leading: Icon(Icons.stream_rounded, size: 30),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.arrow_forward_rounded, size: 30),
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Container(
@@ -83,6 +95,7 @@ class _TodoappState extends State<Todoapp> {
                         margin: EdgeInsets.symmetric(horizontal: 15),
                         child: Divider(color: Colors.deepPurple),
                       ),
+
                   itemCount: value.itemValues.length,
                   itemBuilder: (context, index) {
                     return Dismissible(
@@ -123,10 +136,20 @@ class _TodoappState extends State<Todoapp> {
                       },
                       //  child: ListTile(title: Text(itemValues[index])), that was simple listtile now we will use the listtile with the checkbox
                       child: CheckboxListTile(
+                        tileColor:
+                            value.itemdone[index]
+                                ? Colors.deepPurple[50]
+                                : Colors.white,
                         title: Text(
                           value.itemValues[index],
                           style: TextStyle(
-                            fontSize: 30,
+                            fontSize: 20,
+                            color:
+                                value.itemdone[index]
+                                    ? Colors.red
+                                    : Colors.black,
+
+                            fontWeight: FontWeight.bold,
                             decoration:
                                 value.itemdone[index]
                                     ? TextDecoration.lineThrough
@@ -134,6 +157,9 @@ class _TodoappState extends State<Todoapp> {
                             decorationColor: Colors.red,
                             decorationThickness: 2,
                           ),
+                        ),
+                        subtitle: Text(
+                          DateFormat('EEE, MMM d').format(value.date[index]),
                         ),
 
                         value: value.itemdone[index],

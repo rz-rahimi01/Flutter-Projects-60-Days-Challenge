@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Tasks extends ChangeNotifier {
   List itemValues = [];
   List itemdone = [];
+  List date = [];
   bool isdone = false;
 
   void taskadd(String task, BuildContext context) {
@@ -18,6 +19,7 @@ class Tasks extends ChangeNotifier {
     } else {
       itemValues.add(task);
       itemdone.add(false);
+      date.add(DateTime.now());
       notifyListeners();
     }
   }
