@@ -50,8 +50,8 @@ This week, I focused on creating a **To-Do List App** to practice user input, ma
 
 ### 📌 Day 6–7: Finalization
 - Cleaned up code and added comments.
-- Added a “Clear All Tasks” button with a confirmation dialog.
-- Recorded walkthrough for YouTube.
+-  Added AppBar Buttons.
+- Improved UI.
 - ✅ **Challenge**: Fully functional UI with clear, testable logic.
 
 ---
@@ -67,7 +67,7 @@ This week, I focused on creating a **To-Do List App** to practice user input, ma
 ## 🧩 Concepts Learned
 
 - Taking user input with `TextField` and `TextEditingController`.
-- Using `ListView.builder` to render dynamic task lists.
+- Using `ListView.builder (Separated)` to render dynamic task lists.
 - Implementing `setState` to update UI reactively.
 - Handling actions like delete and complete with `Dismissible` and `CheckboxListTile`.
 - Improving UI using layout widgets like `Padding`, `SizedBox`, and `Container`.
