@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:quotesapp/detail_screen.dart';
+import 'package:quotesapp/theme_provider.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
@@ -50,6 +52,19 @@ class _ScreenState extends State<Screen> {
           'Quotes App',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
+        actions: [
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return Switch(
+                value: themeProvider.isDark,
+                onChanged: (value) {
+                  themeProvider.toggleTheme(value);
+                },
+              );
+            },
+          ),
+        ],
+
         backgroundColor: Colors.deepPurpleAccent,
       ),
       body: Column(
