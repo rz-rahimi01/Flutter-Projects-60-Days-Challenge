@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quotesapp/screen.dart';
-import 'package:quotesapp/theme_provider.dart';
+import 'package:quotesapp/data/theme_data.dart';
+import 'package:quotesapp/models/theme_change.dart';
+import 'package:quotesapp/providers/quotes.dart';
+import 'package:quotesapp/screens/main_screen.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
-      create: (_) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ThemeChange()),
+        ChangeNotifierProvider(create: (context) => QuotesModel()),
+      ],
       child: const MyApp(),
     ),
   );
@@ -17,13 +22,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeProvider = Provider.of<ThemeProvider>(context);
-
+    final theme = Provider.of<ThemeChange>(context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: themeProvider.currentTheme,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      themeMode: theme.current,
+      theme: light,
+      darkTheme: dark,
       home: Screen(),
     );
   }

@@ -1,15 +1,40 @@
 import 'package:flutter/material.dart';
 
-class DetailScreen extends StatefulWidget {
-  final int indexnbr;
-  const DetailScreen({super.key, required this.indexnbr});
-
-  @override
-  State<DetailScreen> createState() => _DetailScreenState();
-}
-
-class _DetailScreenState extends State<DetailScreen> {
-  List<String> quoteDetails = [
+class QuotesModel extends ChangeNotifier {
+  final List<String> _shortQuotes = [
+    "Be yourself;\neveryone else is already taken.",
+    "Two things are infinite:\nthe universe and human stupidity.",
+    "So many books,\nso little time.",
+    "Be the change\nthat you wish to see in the world.",
+    "If you tell the truth,\nyou don't have to remember anything.",
+    "A room without books\nis like a body without a soul.",
+    "You only live once,\nbut if you do it right, once is enough.",
+    "In three words\nI can sum up everything I've learned about life.",
+    "To live is the rarest thing in the world.\nMost people exist, that is all.",
+    "Without music,\nlife would be a mistake.",
+    "We accept the love\nwe think we deserve.",
+    "It is never too late\nto be what you might have been.",
+    "Fairy tales are more than true:\nnot because they tell us dragons exist.",
+    "It does not do\nto dwell on dreams and forget to live.",
+    "There is no friend\nas loyal as a book.",
+    "Everything you can imagine\nis real.",
+    "Do what you can,\nwith what you have, where you are.",
+    "And, when you want something,\nall the universe conspires in helping you.",
+    "Success is not final,\nfailure is not fatal.",
+    "We are all in the gutter,\nbut some of us are looking at the stars.",
+    "Life isn't about finding yourself.\nLife is about creating yourself.",
+    "A friend is someone\nwho knows all about you and still loves you.",
+    "The only way\nto do great work is to love what you do.",
+    "The future belongs\nto those who believe in the beauty of their dreams.",
+    "It is our choices\nthat show what we truly are.",
+    "Happiness can be found\neven in the darkest of times.",
+    "Imagination is more important\nthan knowledge.",
+    "Not all those who wander\nare lost.",
+    "The purpose of our lives\nis to be happy.",
+    "You must be the change\nyou wish to see in the world.",
+  ];
+  get shortQuotes => _shortQuotes;
+  List<String> initial = [
     "Oscar Wilde's famous quote is more than just wit — it's a challenge. In a world full of trends and expectations, being unapologetically yourself is radical. We spend too much time trying to fit into roles, to meet approval, to copy what's 'working' for others. But true happiness starts when you accept who you are, flaws and all. As Carl Jung said, 'The privilege of a lifetime is to become who you truly are.'",
 
     "Einstein's sharp observation about the universe and stupidity is both humorous and hauntingly accurate. While the universe inspires awe with its boundless expanse, the choices humanity makes sometimes defy logic. From ignoring climate change to repeating historical mistakes, the stupidity he refers to isn’t ignorance, it’s willful denial. It's a wake-up call. As George Carlin said, 'Never underestimate the power of stupid people in large groups.'",
@@ -70,44 +95,4 @@ class _DetailScreenState extends State<DetailScreen> {
 
     "Another reminder from Gandhi that change begins inside. The world shifts when individuals decide to be better. You are the starting point. As Tolstoy said, 'Everyone thinks of changing the world, but no one thinks of changing himself.'",
   ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: Text(
-          'Detail Screen',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: Colors.deepPurpleAccent,
-      ),
-      body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 10, left: 15, right: 15),
-            child: Text(
-              quoteDetails[widget.indexnbr],
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-
-            style: ElevatedButton.styleFrom(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-                side: BorderSide(color: Colors.deepPurple, width: 1),
-              ),
-            ),
-            child: Text('Go Back'),
-          ),
-        ],
-      ),
-    );
-  }
 }
