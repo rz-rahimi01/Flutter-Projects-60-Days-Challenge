@@ -21,7 +21,11 @@ ThemeData light = ThemeData().copyWith(
   ),
   switchTheme: SwitchThemeData(
     thumbColor: WidgetStateProperty.all(Colors.white),
-    trackColor: WidgetStateProperty.all(Colors.black54),
+    trackColor: WidgetStateProperty.all(Colors.amber.shade700),
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Colors.orange.shade200,
+    foregroundColor: Colors.black87,
   ),
 );
 
@@ -45,7 +49,7 @@ ThemeData dark = ThemeData.dark().copyWith(
     ),
   ),
   switchTheme: SwitchThemeData(
-    thumbColor: WidgetStateProperty.all(Colors.grey.shade900),
-    trackColor: WidgetStateProperty.all(Colors.amber.shade700),
+    thumbColor: WidgetStateProperty.all(Colors.black54),
+    trackColor: WidgetStateProperty.all(Colors.grey.shade200),
   ),
 );

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:quotesapp/models/favorite.dart';
 import 'package:quotesapp/providers/quotes.dart';
 import 'package:quotesapp/screens/detail_screen.dart';
 import 'package:quotesapp/models/theme_change.dart';
+import 'package:quotesapp/screens/favorite_screen.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
@@ -47,7 +49,7 @@ class _ScreenState extends State<Screen> {
               itemCount: 30,
               separatorBuilder: (context, index) {
                 return Divider(
-                  color: Theme.of(context).dividerColor,
+                  // color: Theme.of(context).dividerColor,
                   thickness: 2,
                   indent: 20,
                   endIndent: 20,
@@ -60,7 +62,6 @@ class _ScreenState extends State<Screen> {
                       title: Text(
                         value.shortQuotes[index],
                         textAlign: TextAlign.center,
-                        textDirection: TextDirection.ltr,
                       ),
                       onTap: () {
                         Navigator.push(
@@ -70,6 +71,26 @@ class _ScreenState extends State<Screen> {
                           ),
                         );
                       },
+                      trailing: Consumer<Favorite>(
+                        builder: (context, fav, child) {
+                          return IconButton(
+                            icon: Icon(
+                              fav.favoriteFlags.contains(index)
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color:
+                                  fav.favoriteFlags.contains(index)
+                                      ? Colors.red
+                                      : Theme.of(context)
+                                          .iconTheme
+                                          .color, // the border color will be based on the theme
+                            ),
+                            onPressed: () {
+                              fav.changeFavorite(index);
+                            },
+                          );
+                        },
+                      ),
                     );
                   },
                 );
@@ -77,6 +98,15 @@ class _ScreenState extends State<Screen> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FavoriteScreen()),
+          );
+        },
+        child: Icon(Icons.favorite, color: Colors.red), // Example icon
       ),
     );
   }
