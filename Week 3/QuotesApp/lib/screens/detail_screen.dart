@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:quotesapp/models/theme_change.dart';
 import 'package:quotesapp/providers/quotes.dart';
@@ -24,10 +25,7 @@ class _DetailScreenState extends State<DetailScreen> {
         automaticallyImplyLeading: false,
         title: const Text(
           'Detail Screen',
-          style: TextStyle(
-            //color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           Icon(Icons.light_mode),
@@ -52,29 +50,88 @@ class _DetailScreenState extends State<DetailScreen> {
             // mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Container(
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(top: 10, left: 50, right: 50),
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).dividerColor,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Text(
                   value.quotesdata[widget.category][widget.indexnbr],
-                  textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(height: 20),
               Container(
+                padding: EdgeInsets.all(10),
                 margin: EdgeInsets.only(top: 10, left: 15, right: 15),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).dividerColor,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Text(
                   value.description[widget.category][widget.indexnbr],
                   style: TextStyle(fontSize: 20),
                 ),
               ),
               SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
+              Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.only(top: 15, left: 15, right: 15),
+                child: Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
 
-                child: Text('Go Back'),
+                      child: Text(
+                        '   Go Back   ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    Expanded(child: SizedBox()),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+
+                      child: GestureDetector(
+                        onTap: () {
+                          Clipboard.setData(
+                            ClipboardData(
+                              text:
+                                  value.quotesdata[widget.category][widget
+                                      .indexnbr],
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text("Quote copied to clipboard!"),
+                              duration: Duration(milliseconds: 1000),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          'Copy Quote',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 15,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           );

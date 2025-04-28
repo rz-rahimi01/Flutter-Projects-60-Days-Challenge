@@ -2,6 +2,38 @@ import 'package:flutter/material.dart';
 
 class QuotesModel extends ChangeNotifier {
   Map quotesdata = {
+    0: [
+      "Discipline is the bridge between goals and accomplishment.",
+      "Success doesn’t come from motivation, it comes from discipline.",
+      "Without discipline, there’s no life at all.",
+      "Discipline is choosing between what you want now and what you want most.",
+      "The pain of discipline is far less than the pain of regret.",
+      "Discipline is doing what needs to be done, even if you don't want to do it.",
+      "Discipline turns ability into achievement.",
+      "Small disciplines repeated with consistency lead to greatness.",
+      "Discipline is the foundation upon which all success is built.",
+      "Self-discipline is the magic power that makes you virtually unstoppable.",
+      "Consistency is what transforms average into excellence.",
+      "The first and best victory is to conquer self.",
+      "What lies in our power to do, lies in our power not to do.",
+      "Discipline is the silent force behind all achievements.",
+      "Mastering others is strength; mastering yourself is true power.",
+      "Success is nothing more than a few simple disciplines practiced daily.",
+      "The more disciplined you become, the easier life gets.",
+      "Self-control is strength. Right thought is mastery. Calmness is power.",
+      "Self-discipline is a form of freedom.",
+      "Discipline weighs ounces; regret weighs tons.",
+      "You will never always be motivated. You must learn to be disciplined.",
+      "Discipline is remembering what you want.",
+      "Discipline yourself, and others won’t need to.",
+      "Discipline creates habits. Habits create success.",
+      "Dreams without discipline are only wishes.",
+      "Freedom begins with discipline.",
+      "Discipline is the difference between good and great.",
+      "If you don't discipline yourself, someone else will.",
+      "Through discipline comes freedom.",
+      "With discipline, belief, and the right knowledge, we become the best we can be.",
+    ],
     1: [
       // Hard Times
       "Tough times never last, but tough people do.",
@@ -160,6 +192,67 @@ class QuotesModel extends ChangeNotifier {
     ],
   };
   Map description = {
+    0: [
+      "Discipline is the essential bridge that connects aspirations to achievements. It serves as the steady force that turns dreams into reality, emphasizing that desire alone is insufficient without the daily practice of focused effort. Psychologically, this quote reinforces the importance of self-regulation and persistence in goal attainment.",
+
+      "While motivation is fleeting and often influenced by emotions, discipline represents a stable, enduring commitment to action. This quote highlights that true success stems from consistent behavior rather than sporadic bursts of enthusiasm, encouraging individuals to prioritize habits over feelings.",
+
+      "Without discipline, a person’s life lacks structure, growth, and purpose. Discipline provides the framework within which human potential can flourish. From a psychological standpoint, it is the bedrock of self-control and emotional regulation, both crucial for a meaningful existence.",
+
+      "Discipline involves making conscious choices that align with long-term values rather than short-term gratification. This quote reflects the psychological concept of delayed gratification, an ability that predicts success and emotional well-being across a lifetime.",
+
+      "The temporary discomfort associated with discipline pales in comparison to the enduring suffering that comes from living with regret. This highlights how proactive discomfort is healthier and more empowering than reactive pain later on, a core principle in behavioral psychology.",
+
+      "True discipline is doing necessary tasks even in the absence of desire. This quote underlines the psychological strength needed to act in accordance with goals and responsibilities, rather than yielding to fleeting emotions or impulses.",
+
+      "Raw ability is inert without discipline. Talent, no matter how great, must be refined through consistent effort and self-control in order to translate into real-world achievement, emphasizing the role of conscientiousness in long-term success.",
+
+      "Greatness is not a product of grand actions but of small, consistent disciplines practiced daily. The psychological power of habit formation and incremental progress is at the core of this quote, reinforcing the necessity of patience and repetition.",
+
+      "Discipline lays the groundwork for all kinds of success, whether personal, professional, or relational. Without it, even the best plans and talents collapse, emphasizing that self-regulation is the root of sustainable achievement.",
+
+      "Self-discipline equips individuals with an almost supernatural resilience and ability to pursue goals relentlessly. It transforms ordinary individuals into unstoppable forces, highlighting the psychological principle of intrinsic motivation bolstered by self-control.",
+
+      "Consistency differentiates mediocrity from excellence. This quote stresses that success is less about extraordinary talent and more about the steady application of effort, aligning with psychological theories of deliberate practice and behavioral reinforcement.",
+
+      "True victory lies not in conquering others, but in mastering oneself. This timeless wisdom echoes the importance of emotional intelligence, impulse control, and self-awareness in achieving a fulfilling and empowered life.",
+
+      "This quote emphasizes personal agency and self-mastery. The choices we make or refuse to make define our lives. It points to the profound impact of self-discipline on the trajectory of our actions and the ownership of personal responsibility.",
+
+      "Much of life's visible achievements are fueled by the invisible force of discipline. This quote elevates the often-unseen daily efforts that culminate in success, validating the silent perseverance behind public triumphs.",
+
+      "True strength is not found in overpowering others but in exercising self-restraint and personal mastery. Psychological strength involves emotional regulation, resilience, and the ability to align behavior with long-term values.",
+
+      "Success is the outcome of small, seemingly insignificant disciplines repeated consistently. It highlights the principle that small, daily behaviors, when compounded over time, lead to massive results — a concept central to behavioral psychology.",
+
+      "The more disciplined one becomes, the more manageable and efficient life feels. Discipline reduces chaos, increases predictability, and provides a foundation for emotional stability, stress reduction, and personal empowerment.",
+
+      "Self-control, rational thinking, and calmness are key pillars of personal mastery. This quote encapsulates the psychological understanding that emotional regulation and thought mastery are critical components of inner strength and resilience.",
+
+      "Self-discipline is paradoxically liberating; it frees individuals from the tyranny of impulse, compulsion, and distraction. True freedom comes from choosing actions aligned with one’s higher self rather than succumbing to every fleeting desire.",
+
+      "The burden of discipline is light compared to the heavy weight of regret. Acting responsibly today protects one's future emotional health and self-esteem, a crucial lesson in cultivating foresight and resilience.",
+
+      "Relying on motivation sets one up for inconsistency. This quote teaches that discipline — acting regardless of fluctuating emotional states — is what sustains achievement, reflecting cognitive-behavioral strategies for building sustainable habits.",
+
+      "Remembering the deeper, long-term goals enables an individual to resist the pull of immediate gratification. This quote emphasizes mindfulness and value-based living as psychological tools for strengthening discipline.",
+
+      "Self-discipline renders external control unnecessary. By mastering oneself, one becomes autonomous and immune to external impositions, embodying psychological maturity and internal locus of control.",
+
+      "Discipline cultivates habitual excellence. Once positive behaviors become automatic, they create a momentum toward success, reflecting the psychological principle of habit formation through repeated action.",
+
+      "Without discipline, dreams remain mere fantasies. This quote underscores the essential role of structured action in transforming aspirations into tangible realities, promoting an active, empowered mindset.",
+
+      "Contrary to popular belief, true freedom begins with discipline. Discipline offers the stability and self-mastery required to live freely and purposefully, anchoring autonomy in personal responsibility.",
+
+      "Good performance becomes great only through the refining power of discipline. This quote challenges the notion that innate talent alone suffices, stressing the role of perseverance and hard work in achieving excellence.",
+
+      "If individuals do not regulate themselves, external forces (such as rules, authority figures, or societal norms) will. This highlights the importance of self-governance in maintaining personal freedom and autonomy.",
+
+      "Freedom arises from the structure and focus provided by discipline. By setting boundaries for oneself, one paradoxically gains greater control over life’s opportunities and experiences.",
+
+      "When discipline is combined with belief and knowledge, individuals unlock their highest potential. This quote promotes the idea that self-regulation, coupled with the right mindset and information, leads to profound personal evolution.",
+    ],
     1: [
       "This quote emphasizes the resilience of the human spirit over the temporary nature of hardship. Tough times are fleeting, but those who endure cultivate lasting strength and character. It promotes psychological resilience, reminding individuals that persistence through adversity can define their future success.",
 

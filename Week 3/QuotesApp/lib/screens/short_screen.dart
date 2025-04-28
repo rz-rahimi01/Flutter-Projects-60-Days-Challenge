@@ -4,11 +4,15 @@ import 'package:quotesapp/models/favorite.dart';
 import 'package:quotesapp/providers/quotes.dart';
 import 'package:quotesapp/screens/detail_screen.dart';
 import 'package:quotesapp/models/theme_change.dart';
-import 'package:quotesapp/screens/favorite_screen.dart';
 
 class ShortScreen extends StatefulWidget {
-  final int ch;
-  const ShortScreen({super.key, required this.ch});
+  final int category;
+  final String categoryName;
+  const ShortScreen({
+    super.key,
+    required this.category,
+    required this.categoryName,
+  });
 
   @override
   State<ShortScreen> createState() => _ShortScreen();
@@ -19,8 +23,9 @@ class _ShortScreen extends State<ShortScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Quotes App',
+        title: Text(
+          widget.categoryName,
+          overflow: TextOverflow.ellipsis,
           style: TextStyle(
             //color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -45,24 +50,24 @@ class _ShortScreen extends State<ShortScreen> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ListView.separated(
-              itemCount: 30,
-              separatorBuilder: (context, index) {
-                return Divider(
-                  // color: Theme.of(context).dividerColor,
-                  thickness: 2,
-                  indent: 20,
-                  endIndent: 20,
-                );
-              },
-              itemBuilder: (context, index) {
-                return Consumer<QuotesModel>(
-                  builder: (context, value, child) {
+          Consumer<QuotesModel>(
+            builder: (context, value, child) {
+              return Expanded(
+                child: ListView.separated(
+                  itemCount: value.quotesdata[widget.category].length,
+                  separatorBuilder: (context, index) {
+                    return Divider(
+                      color: Theme.of(context).dividerColor,
+                      thickness: 2,
+                      indent: 20,
+                      endIndent: 20,
+                    );
+                  },
+                  itemBuilder: (context, index) {
                     return ListTile(
                       title: Text(
-                        value.quotesdata[widget.ch][index],
-                        textAlign: TextAlign.center,
+                        value.quotesdata[widget.category][index],
+                        style: TextStyle(fontSize: 20),
                       ),
                       onTap: () {
                         Navigator.push(
@@ -70,7 +75,7 @@ class _ShortScreen extends State<ShortScreen> {
                           MaterialPageRoute(
                             builder:
                                 (context) => DetailScreen(
-                                  category: widget.ch,
+                                  category: widget.category,
                                   indexnbr: index,
                                 ),
                           ),
@@ -80,38 +85,38 @@ class _ShortScreen extends State<ShortScreen> {
                         builder: (context, fav, child) {
                           return IconButton(
                             icon: Icon(
-                              fav.favoriteFlags.contains(index)
+                              fav.favoriteFlags.any(
+                                    (item) =>
+                                        item[0] == widget.category &&
+                                        item[1] == index,
+                                  )
                                   ? Icons.favorite
                                   : Icons.favorite_border,
                               color:
-                                  fav.favoriteFlags.contains(index)
+                                  fav.favoriteFlags.any(
+                                        (item) =>
+                                            item[0] == widget.category &&
+                                            item[1] == index,
+                                      )
                                       ? Colors.red
                                       : Theme.of(context)
                                           .iconTheme
                                           .color, // the border color will be based on the theme
                             ),
+                            iconSize: 30,
                             onPressed: () {
-                              fav.changeFavorite(index);
+                              fav.changeFavorite(widget.category, index);
                             },
                           );
                         },
                       ),
                     );
                   },
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => FavoriteScreen()),
-          );
-        },
-        child: Icon(Icons.favorite, color: Colors.red), // Example icon
       ),
     );
   }

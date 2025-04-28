@@ -11,11 +11,12 @@ ThemeData light = ThemeData().copyWith(
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         side: const BorderSide(color: Colors.black87, width: 2),
       ),
       backgroundColor: Colors.orange.shade200,
       foregroundColor: Colors.black87,
+      shadowColor: Colors.black87,
       elevation: 4,
     ),
   ),
@@ -35,18 +36,25 @@ ThemeData dark = ThemeData.dark().copyWith(
     elevation: 4,
     shadowColor: Colors.white24,
   ),
+
   scaffoldBackgroundColor: Colors.grey.shade900,
-  // dividerColor: Colors.grey.shade600,
+
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(10),
         side: const BorderSide(color: Colors.white70, width: 2),
       ),
       backgroundColor: Colors.grey.shade800,
       foregroundColor: Colors.white,
+      shadowColor: Colors.grey.shade200,
       elevation: 4,
     ),
+  ),
+  floatingActionButtonTheme: FloatingActionButtonThemeData(
+    backgroundColor: Colors.grey.shade600,
+    foregroundColor: Colors.white,
+    elevation: 4,
   ),
   switchTheme: SwitchThemeData(
     thumbColor: WidgetStateProperty.all(Colors.black54),

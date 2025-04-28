@@ -60,8 +60,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             return ListTile(
                               title: Text(
                                 // txt.shortQuotes[value.favoriteFlags[index]],
-                                "wait",
-                                textAlign: TextAlign.center,
+                                txt.quotesdata[value
+                                    .favoriteFlags[index][0]][value
+                                    .favoriteFlags[index][1]],
+                                style: TextStyle(fontSize: 20),
                               ),
                               onTap: () {
                                 Navigator.push(
@@ -69,17 +71,21 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => DetailScreen(
-                                          category: 5,
-                                          indexnbr: value.favoriteFlags[index],
+                                          category:
+                                              value.favoriteFlags[index][0],
+                                          indexnbr:
+                                              value.favoriteFlags[index][1],
                                         ),
                                   ),
                                 );
                               },
                               trailing: IconButton(
                                 icon: Icon(Icons.favorite, color: Colors.red),
+                                iconSize: 30,
                                 onPressed: () {
                                   value.changeFavorite(
-                                    value.favoriteFlags[index],
+                                    value.favoriteFlags[index][0],
+                                    value.favoriteFlags[index][1],
                                   );
                                 },
                               ),

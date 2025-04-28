@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:quotesapp/models/theme_change.dart';
+import 'package:quotesapp/screens/favorite_screen.dart';
 import 'package:quotesapp/screens/short_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -12,7 +13,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   List category = [
-    "Based on Mood",
+    "Disicipline",
     "Hard Times",
     "Personal Growth",
     "Love and Relationships",
@@ -21,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   List image = [
-    "assets/mood.png",
+    "assets/disicipline.png",
     "assets/hard_times.png",
     "assets/personal_growth.png",
     "assets/love_relationship.png",
@@ -84,7 +85,7 @@ class _MainScreenState extends State<MainScreen> {
                           SizedBox(width: 30),
                           Expanded(
                             child: Text(
-                              category[index] + index.toString(),
+                              category[index],
                               textAlign: TextAlign.start,
                               style: TextStyle(
                                 fontSize: 20,
@@ -98,7 +99,11 @@ class _MainScreenState extends State<MainScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ShortScreen(ch: index),
+                            builder:
+                                (context) => ShortScreen(
+                                  category: index,
+                                  categoryName: category[index],
+                                ),
                           ),
                         );
                       },
@@ -107,6 +112,15 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FavoriteScreen()),
+          );
+        },
+        child: Icon(Icons.favorite, color: Colors.red), // Example icon
       ),
     );
   }
