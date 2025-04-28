@@ -1,25 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:quotesapp/models/favorite.dart';
-import 'package:quotesapp/providers/quotes.dart';
-import 'package:quotesapp/screens/detail_screen.dart';
 import 'package:quotesapp/models/theme_change.dart';
-import 'package:quotesapp/screens/favorite_screen.dart';
+import 'package:quotesapp/screens/short_screen.dart';
 
-class Screen extends StatefulWidget {
-  const Screen({super.key});
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
 
   @override
-  State<Screen> createState() => _ScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
-class _ScreenState extends State<Screen> {
+class _MainScreenState extends State<MainScreen> {
+  List category = [
+    "Based on Mood",
+    "Hard Times",
+    "Personal Growth",
+    "Love and Relationships",
+    "Depressed",
+    "Work and Productivity",
+  ];
+
+  List image = [
+    "assets/mood.png",
+    "assets/hard_times.png",
+    "assets/personal_growth.png",
+    "assets/love_relationship.png",
+    "assets/depressed.png",
+    "assets/work_productivity.png",
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Quotes App',
+          'Category Selection',
           style: TextStyle(
             //color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -46,67 +60,53 @@ class _ScreenState extends State<Screen> {
         children: [
           Expanded(
             child: ListView.separated(
-              itemCount: 30,
+              itemCount: category.length,
               separatorBuilder: (context, index) {
-                return Divider(
-                  // color: Theme.of(context).dividerColor,
-                  thickness: 2,
-                  indent: 20,
-                  endIndent: 20,
-                );
+                return Divider(indent: 10, endIndent: 10, thickness: 2);
               },
-              itemBuilder: (context, index) {
-                return Consumer<QuotesModel>(
-                  builder: (context, value, child) {
-                    return ListTile(
-                      title: Text(
-                        value.shortQuotes[index],
-                        textAlign: TextAlign.center,
+              itemBuilder:
+                  (context, index) => Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    child: ListTile(
+                      title: Row(
+                        children: [
+                          Consumer<ThemeChange>(
+                            builder: (context, value, child) {
+                              return Image.asset(
+                                "${image[index]}",
+                                height: 70,
+                                width: 70,
+                                color:
+                                    value.isDark ? Colors.white : Colors.black,
+                              );
+                            },
+                          ),
+                          SizedBox(width: 30),
+                          Expanded(
+                            child: Text(
+                              category[index] + index.toString(),
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => DetailScreen(indexnbr: index),
+                            builder: (context) => ShortScreen(ch: index),
                           ),
                         );
                       },
-                      trailing: Consumer<Favorite>(
-                        builder: (context, fav, child) {
-                          return IconButton(
-                            icon: Icon(
-                              fav.favoriteFlags.contains(index)
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color:
-                                  fav.favoriteFlags.contains(index)
-                                      ? Colors.red
-                                      : Theme.of(context)
-                                          .iconTheme
-                                          .color, // the border color will be based on the theme
-                            ),
-                            onPressed: () {
-                              fav.changeFavorite(index);
-                            },
-                          );
-                        },
-                      ),
-                    );
-                  },
-                );
-              },
+                    ),
+                  ),
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => FavoriteScreen()),
-          );
-        },
-        child: Icon(Icons.favorite, color: Colors.red), // Example icon
       ),
     );
   }

@@ -4,8 +4,13 @@ import 'package:quotesapp/models/theme_change.dart';
 import 'package:quotesapp/providers/quotes.dart';
 
 class DetailScreen extends StatefulWidget {
+  final int category;
   final int indexnbr;
-  const DetailScreen({super.key, required this.indexnbr});
+  const DetailScreen({
+    super.key,
+    required this.category,
+    required this.indexnbr,
+  });
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -14,10 +19,6 @@ class DetailScreen extends StatefulWidget {
 class _DetailScreenState extends State<DetailScreen> {
   @override
   Widget build(BuildContext context) {
-    final quotesdetailsLocal =
-        Provider.of<QuotesModel>(context, listen: false).initial[widget
-            .indexnbr];
-
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -45,22 +46,39 @@ class _DetailScreenState extends State<DetailScreen> {
 
         //backgroundColor: Colors.deepPurpleAccent,
       ),
-      body: Column(
-        // mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            margin: EdgeInsets.only(top: 10, left: 15, right: 15),
-            child: Text((quotesdetailsLocal), style: TextStyle(fontSize: 20)),
-          ),
-          SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
+      body: Consumer<QuotesModel>(
+        builder: (context, value, child) {
+          return Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(top: 10, left: 50, right: 50),
+                child: Text(
+                  value.quotesdata[widget.category][widget.indexnbr],
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                margin: EdgeInsets.only(top: 10, left: 15, right: 15),
+                child: Text(
+                  value.description[widget.category][widget.indexnbr],
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
 
-            child: Text('Go Back'),
-          ),
-        ],
+                child: Text('Go Back'),
+              ),
+            ],
+          );
+        },
       ),
     );
   }

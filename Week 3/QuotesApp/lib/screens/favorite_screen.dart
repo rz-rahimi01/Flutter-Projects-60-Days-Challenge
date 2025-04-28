@@ -59,7 +59,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                           builder: (context, txt, child) {
                             return ListTile(
                               title: Text(
-                                txt.shortQuotes[value.favoriteFlags[index]],
+                                // txt.shortQuotes[value.favoriteFlags[index]],
+                                "wait",
                                 textAlign: TextAlign.center,
                               ),
                               onTap: () {
@@ -68,6 +69,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => DetailScreen(
+                                          category: 5,
                                           indexnbr: value.favoriteFlags[index],
                                         ),
                                   ),
