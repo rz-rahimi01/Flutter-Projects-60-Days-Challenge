@@ -13,7 +13,7 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 | 2   | Light/Dark Mode Theme       | `ThemeData`, `Brightness`, `Switch`, `ChangeNotifier`, `Provider` |
 | 3   | Provider Refactor           | `ChangeNotifier`, `Consumer`, `notifyListeners`, folder structure |
 | 4   | Favorite Quotes Toggle      | `IconButton`, favorites with Provider, conditional UI |
-| 5   | UI Polish + Reusable Widget| `Card`, `Container`, `BoxShadow`, `Padding`, `QuoteCard` |
+| 5   | UI Polish + Reusable Widget| `Snackbar`, `Container`, `BoxShadow`, `Padding`, `Clipboard` |
 | 6–7 | Finalization + Video        | Final polish, test, record demo, upload to YouTube |
 
 ---
@@ -46,13 +46,16 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 - **Widgets**: `IconButton`, `Provider`, `Conditional UI`.
 
 ### 📌 Day 5: UI Polish + QuoteCard Widget
-- Created a reusable `QuoteCard` widget for cleaner code.
+- Added different Categories.
+- New add to favourite technique.
 - Added shadows, spacing, and rounded corners.
 - Applied theme-aware colors using `Theme.of(context)`.
-- **Challenge**: Added animation (e.g., Hero transition) to detail screen.
+  
 
 ### 📌 Day 6–7: Final Review & Refactor
 - Cleaned project structure and added comments.
+- Added copy to clipboard option.
+- Added many more quotes (150+)
 - Final tests: navigation, theme toggle, favorites.
 - Recorded a walkthrough video of the app demo.
 - **Challenge**: Added toast/snackbar when favoriting a quote.
@@ -75,7 +78,7 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 | ☐      | Theme toggle (light/dark)              |
 | ☐      | Refactor with Provider                 |
 | ☐      | Favorite quotes feature                |
-| ☐      | Reusable `QuoteCard` widget            |
+| ☐      | Different Categories                   |
 | ☐      | Polish UI + Record + Upload walkthrough|
 
 ---
@@ -86,9 +89,9 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 - Building scrollable lists with `ListView` and `ListTile`.
 - Managing app-wide state using `Provider` and `ChangeNotifier`.
 - Toggling themes and dynamically changing `ThemeData`.
-- Creating reusable widgets (`QuoteCard`) for scalable UI.
+- Different types of quote categories.
 - Handling user interactions with icons and conditional UI.
-- Animating transitions between screens (Hero / custom PageRoute).
+- Copy qoute using clipboard option.
 - Refactoring app structure for clarity and scalability.
 - Testing and documenting projects before uploading.
 
