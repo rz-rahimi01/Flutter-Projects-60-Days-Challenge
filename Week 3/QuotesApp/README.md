@@ -14,7 +14,7 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 | 3   | Provider Refactor           | `ChangeNotifier`, `Consumer`, `notifyListeners`, folder structure |
 | 4   | Favorite Quotes Toggle      | `IconButton`, favorites with Provider, conditional UI |
 | 5   | UI Polish + Reusable Widget| `Snackbar`, `Container`, `BoxShadow`, `Padding`, `Clipboard` |
-| 6–7 | Finalization + Video        | Final polish, test, record demo, upload to YouTube |
+| 6–7 | Finalization + Adding Hive  | Final polish, test, add `hive` package to save favorites |
 
 ---
 
@@ -57,7 +57,7 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 - Added copy to clipboard option.
 - Added many more quotes (150+)
 - Final tests: navigation, theme toggle, favorites.
-- Recorded a walkthrough video of the app demo.
+- Added `Hive` to store the favorites now favorites will be saved even after app close.
 - **Challenge**: Added toast/snackbar when favoriting a quote.
 
 ---
@@ -79,7 +79,7 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 | ☐      | Refactor with Provider                 |
 | ☐      | Favorite quotes feature                |
 | ☐      | Different Categories                   |
-| ☐      | Polish UI + Record + Upload walkthrough|
+| ☐      | Polish UI + Hive +|
 
 ---
 
@@ -93,6 +93,7 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 - Handling user interactions with icons and conditional UI.
 - Copy qoute using clipboard option.
 - Refactoring app structure for clarity and scalability.
+- Using `Hive` to store favoirte things.
 - Testing and documenting projects before uploading.
 
 ---
