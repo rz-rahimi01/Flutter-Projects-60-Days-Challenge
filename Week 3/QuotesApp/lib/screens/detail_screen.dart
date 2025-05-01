@@ -90,7 +90,6 @@ class _DetailScreenState extends State<DetailScreen> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-
                       child: Text(
                         '   Go Back   ',
                         style: TextStyle(
@@ -102,31 +101,25 @@ class _DetailScreenState extends State<DetailScreen> {
                     Expanded(child: SizedBox()),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.pop(context);
-                      },
-
-                      child: GestureDetector(
-                        onTap: () {
-                          Clipboard.setData(
-                            ClipboardData(
-                              text:
-                                  value.quotesdata[widget.category][widget
-                                      .indexnbr],
-                            ),
-                          );
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text("Quote copied to clipboard!"),
-                              duration: Duration(milliseconds: 1000),
-                            ),
-                          );
-                        },
-                        child: Text(
-                          'Copy Quote',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                        Clipboard.setData(
+                          ClipboardData(
+                            text:
+                                value.quotesdata[widget.category][widget
+                                    .indexnbr],
                           ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text("Quote copied to clipboard!"),
+                            duration: Duration(milliseconds: 1000),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Copy Quote',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
                         ),
                       ),
                     ),

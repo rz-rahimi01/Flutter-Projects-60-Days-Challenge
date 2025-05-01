@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:quotesapp/models/favorite.dart';
+import 'package:quotesapp/models/favorite_change.dart';
 import 'package:quotesapp/providers/quotes.dart';
 import 'package:quotesapp/screens/detail_screen.dart';
 import 'package:quotesapp/models/theme_change.dart';
@@ -13,6 +14,18 @@ class FavoriteScreen extends StatefulWidget {
 }
 
 class _FavoriteScreenState extends State<FavoriteScreen> {
+  List favs = [];
+  @override
+  void initState() {
+    super.initState();
+    loadFavorites();
+  }
+
+  void loadFavorites() {
+    final box = Hive.box('favorites');
+    favs = box.values.cast().toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +51,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
       ),
       body: Consumer<Favorite>(
         builder: (context, value, child) {
-          return value.favoriteFlags.isEmpty
+          return favs.isEmpty
               ? Center(
                 child: Text(
                   "There is no favorite item available",
@@ -50,7 +63,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                 children: [
                   Expanded(
                     child: ListView.separated(
-                      itemCount: value.favoriteFlags.length,
+                      itemCount: favs.length,
                       separatorBuilder: (context, index) {
                         return Divider(thickness: 2, indent: 20, endIndent: 20);
                       },
@@ -60,9 +73,7 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                             return ListTile(
                               title: Text(
                                 // txt.shortQuotes[value.favoriteFlags[index]],
-                                txt.quotesdata[value
-                                    .favoriteFlags[index][0]][value
-                                    .favoriteFlags[index][1]],
+                                txt.quotesdata[favs[index][0]][favs[index][1]],
                                 style: TextStyle(fontSize: 20),
                               ),
                               onTap: () {
@@ -71,10 +82,8 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                   MaterialPageRoute(
                                     builder:
                                         (context) => DetailScreen(
-                                          category:
-                                              value.favoriteFlags[index][0],
-                                          indexnbr:
-                                              value.favoriteFlags[index][1],
+                                          category: favs[index][0],
+                                          indexnbr: favs[index][1],
                                         ),
                                   ),
                                 );
@@ -84,9 +93,10 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
                                 iconSize: 30,
                                 onPressed: () {
                                   value.changeFavorite(
-                                    value.favoriteFlags[index][0],
-                                    value.favoriteFlags[index][1],
+                                    favs[index][0],
+                                    favs[index][1],
                                   );
+                                  favs.removeAt(index);
                                 },
                               ),
                             );

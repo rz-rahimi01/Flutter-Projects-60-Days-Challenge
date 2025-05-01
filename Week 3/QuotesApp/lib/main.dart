@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:quotesapp/data/theme_data.dart';
-import 'package:quotesapp/models/favorite.dart';
+import 'package:quotesapp/models/favorite_change.dart';
 import 'package:quotesapp/models/theme_change.dart';
 import 'package:quotesapp/providers/quotes.dart';
 import 'package:quotesapp/screens/main_screen.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox('favorites');
   runApp(
     MultiProvider(
       providers: [
