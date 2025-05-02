@@ -8,6 +8,7 @@ import 'package:quotesapp/providers/quotes.dart';
 import 'package:quotesapp/screens/main_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await Hive.openBox('favorites');
   runApp(
