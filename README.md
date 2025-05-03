@@ -46,8 +46,8 @@ By the end of the week, each project will be complete, with screenshots and docu
 |------|---------|----------------|--------|
 | Week 1 | [Profile Card UI](./Week%201/ProfileCardUI) | Dart, widgets, layout, styling | Completed ✅ |
 | Week 2 | [To Do App](./Week%202/ToDoApp) | Text input, ListView, setState, Provider | Completed ✅ |
-| 🔜 Week 3 | [Quotes App](./Week%203/QuotesApp) | Navigation, theme toggle, Provider | In Progress |
-| Week 4 | Login + Firebase Auth | Firebase basics, Provider | Upcoming |
+| Week 3 | [Quotes App](./Week%203/QuotesApp) | Navigation, theme toggle, Provider | Completed ✅ |
+| 🔜 Week 4 | [Firebase Auth App](./Week%204/FirebaseAuthApp) | Firebase basics, Provider | In Progress |
 | Week 5–8 | Expense Tracker App | Full App: Auth, Firestore, CRUD, charts, UI | Upcoming |
 | Week 9 | Polish & Deploy | Testing, Deployment, GitHub Docs | Upcoming |
 
@@ -92,7 +92,20 @@ By the end of the week, each project will be complete, with screenshots and docu
 
 
 ---
+## 📌 Week 4 – Firebase Auth App
 
+**Goal:** Build a Firebase auth App to practice a basic authentication flow using Firebase with Auth State watcher and provider.
+
+### 🖼️ Output Screenshot
+| Firebase Auth App |
+|-----------------|
+| <img src="./Outputs/Week 4.png" width="200" height="400" /> |
+
+📂 Project Folder: [`Week 4/QuotesApp`](./Week%204/FirebaseAuthApp)  
+📖 Detailed Progress: See [Week 4 README](./Week%204/FirebaseAuthApp/README.md)
+
+
+---
 
 
 ## 📄 License
