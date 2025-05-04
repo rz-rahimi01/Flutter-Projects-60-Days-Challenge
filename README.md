@@ -101,7 +101,7 @@ By the end of the week, each project will be complete, with screenshots and docu
 |-----------------|
 | <img src="./Outputs/Week 4.png" width="200" height="400" /> |
 
-📂 Project Folder: [`Week 4/QuotesApp`](./Week%204/FirebaseAuthApp)  
+📂 Project Folder: [`Week 4/FirebaseAuthApp`](./Week%204/FirebaseAuthApp)  
 📖 Detailed Progress: See [Week 4 README](./Week%204/FirebaseAuthApp/README.md)
 
 

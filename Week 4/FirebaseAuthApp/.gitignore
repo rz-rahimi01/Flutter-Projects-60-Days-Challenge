@@ -43,3 +43,14 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# Firebase configuration files (very important)
+android/app/google-services.json
+ios/Runner/GoogleService-Info.plist
+
+# Xcode workspace settings (optional but good practice)
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec

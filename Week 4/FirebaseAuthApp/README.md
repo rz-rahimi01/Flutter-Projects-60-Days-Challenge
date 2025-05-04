@@ -63,7 +63,7 @@ This week’s goal was to build a **basic authentication flow** using Firebase. 
 
 | Firebase Auth App |
 |-------------------|
-| <img src="../../Outputs/Week4.png" width="250" height="500" /> |
+| <img src="../../Outputs/Week 4.png" width="250" height="500" /> |
 
 ---
 
