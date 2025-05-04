@@ -11,7 +11,7 @@ This week’s goal was to build a **basic authentication flow** using Firebase. 
 | Day | Focus Areas                  | Concepts & Widgets |
 |-----|-------------------------------|---------------------|
 | 1   | Firebase Setup                | Firebase Console, firebase_core, firebase_auth |
-| 2   | Login UI + Form Validation   | Form, TextFormField, TextEditingController |
+| 2   | Login UI + Form Validation   | Form, TextFormField, TextEditingControllers |
 | 3   | Login Logic with Firebase    | FirebaseAuth, SignIn with Email and Password |
 | 4   | Registration Screen          | Navigator, Form, password validation |
 | 5   | Auth State + Provider        | ChangeNotifier, Provider, auth flow |
