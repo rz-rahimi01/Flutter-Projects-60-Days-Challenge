@@ -1,21 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebaseauth/screens/home_screen.dart';
-import 'package:firebaseauth/screens/register_screen.dart';
+import 'package:firebaseauth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreen();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreen extends State<RegisterScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
 
-  Future login() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
+  Future register() async {
+    await FirebaseAuth.instance.createUserWithEmailAndPassword(
       email: email.text,
       password: pass.text,
     );
@@ -35,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           title: Text(
-            "Login Screen",
+            "Register Screen",
             style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
           ),
           backgroundColor: Colors.deepPurple,
@@ -49,7 +48,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    backgroundImage: AssetImage('assets/login.png'),
+                    backgroundImage: AssetImage('assets/register.png'),
+                    backgroundColor: Colors.white,
                     radius: 100,
                   ),
                   SizedBox(height: 50),
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             // Trigger the form validation
                             if (_formKey.currentState!.validate()) {
                               try {
-                                await login();
+                                await register();
                                 if (!mounted) return;
 
                                 ScaffoldMessenger.of(context)
@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       SnackBar(
                                         backgroundColor: Colors.lightGreen,
                                         content: Text(
-                                          "Login Successful",
+                                          "Registered Successful",
                                           style: TextStyle(color: Colors.black),
                                         ),
                                         duration: Duration(
@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => HomeScreen(),
+                                          builder: (context) => LoginScreen(),
                                         ),
                                       );
                                     });
@@ -231,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Text(
-                              "Login",
+                              "Register",
                               style: TextStyle(
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold,
@@ -248,7 +248,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => RegisterScreen(),
+                                builder: (context) => LoginScreen(),
                               ),
                             );
                           },
@@ -261,8 +261,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               border: Border.all(),
                               borderRadius: BorderRadius.circular(10),
                             ),
+
                             child: Text(
-                              "Register",
+                              "Login",
                               style: TextStyle(fontSize: 18),
                             ),
                           ),
