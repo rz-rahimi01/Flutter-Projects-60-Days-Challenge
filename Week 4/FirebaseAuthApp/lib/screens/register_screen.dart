@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebaseauth/screens/home_screen.dart';
 import 'package:firebaseauth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -171,7 +172,7 @@ class _RegisterScreen extends State<RegisterScreen> {
                                       Navigator.pushReplacement(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => LoginScreen(),
+                                          builder: (context) => HomeScreen(),
                                         ),
                                       );
                                     });

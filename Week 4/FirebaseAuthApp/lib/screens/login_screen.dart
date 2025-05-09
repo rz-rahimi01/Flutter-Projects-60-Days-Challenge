@@ -25,6 +25,13 @@ class _LoginScreenState extends State<LoginScreen> {
   bool isobscure = true;
 
   @override
+  void dispose() {
+    email.dispose();
+    pass.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
