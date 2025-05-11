@@ -13,6 +13,13 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController email = TextEditingController();
   TextEditingController pass = TextEditingController();
+  bool isloading = false;
+
+  void change() {
+    setState(() {
+      isloading = !isloading;
+    });
+  }
 
   Future login() async {
     await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -151,102 +158,121 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
 
                         SizedBox(height: 30), //  SizedBox(height: 50),
-                        InkWell(
-                          onTap: () async {
-                            // Trigger the form validation
-                            if (_formKey.currentState!.validate()) {
-                              try {
-                                await login();
-                                if (!mounted) return;
 
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(
-                                      SnackBar(
-                                        backgroundColor: Colors.lightGreen,
-                                        content: Text(
-                                          "Login Successful",
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        duration: Duration(
-                                          seconds: 1,
-                                        ), // or however long you want
-                                      ),
-                                    )
-                                    .closed
-                                    .then((_) {
-                                      if (!mounted) return;
-                                      Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => HomeScreen(),
-                                        ),
-                                      );
-                                    });
-                              } on FirebaseAuthException catch (e) {
-                                String errorMessage;
+                        isloading
+                            ? CircularProgressIndicator()
+                            : InkWell(
+                              onTap: () async {
+                                // Trigger the form validation
+                                if (_formKey.currentState!.validate()) {
+                                  change();
+                                  try {
+                                    await login();
+                                    if (!mounted) return;
 
-                                switch (e.code) {
-                                  case 'user-not-found':
-                                    errorMessage =
-                                        'No user found for that email.';
-                                    break;
-                                  case 'wrong-password':
-                                    errorMessage = 'Incorrect password.';
-                                    break;
-                                  case 'invalid-email':
-                                    errorMessage =
-                                        'The email address is invalid.';
-                                    break;
-                                  case 'invalid-credential':
-                                    errorMessage =
-                                        'The credentials provided are incorrect or malformed.';
-                                    break;
-                                  case 'too-many-requests':
-                                    errorMessage =
-                                        'Too many login attempts. Please try again later.';
-                                    break;
-                                  case 'network-request-failed':
-                                    errorMessage =
-                                        'Network error, please check your internet connection.';
-                                    break;
-                                  default:
-                                    errorMessage =
-                                        'Login failed: ${e.message ?? 'Unknown error'}';
-                                    break;
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.lightGreen,
+                                            content: Text(
+                                              "Login Successful",
+                                              style: TextStyle(
+                                                color: Colors.black,
+                                              ),
+                                            ),
+                                            duration: Duration(
+                                              seconds: 1,
+                                            ), // or however long you want
+                                          ),
+                                        )
+                                        .closed
+                                        .then((_) {
+                                          if (!mounted) return;
+                                          Navigator.pushReplacement(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder:
+                                                  (context) => HomeScreen(),
+                                            ),
+                                          );
+                                        });
+                                  } on FirebaseAuthException catch (e) {
+                                    String errorMessage;
+
+                                    switch (e.code) {
+                                      case 'user-not-found':
+                                        errorMessage =
+                                            'No user found for that email.';
+                                        break;
+                                      case 'wrong-password':
+                                        errorMessage = 'Incorrect password.';
+                                        break;
+                                      case 'invalid-email':
+                                        errorMessage =
+                                            'The email address is invalid.';
+                                        break;
+                                      case 'invalid-credential':
+                                        errorMessage =
+                                            'The credentials provided are incorrect or malformed.';
+                                        break;
+                                      case 'too-many-requests':
+                                        errorMessage =
+                                            'Too many login attempts. Please try again later.';
+                                        break;
+                                      case 'network-request-failed':
+                                        errorMessage =
+                                            'Network error, please check your internet connection.';
+                                        break;
+                                      default:
+                                        errorMessage =
+                                            'Login failed: ${e.message ?? 'Unknown error'}';
+                                        break;
+                                    }
+                                    if (!mounted) return;
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                          SnackBar(
+                                            backgroundColor: Colors.red,
+                                            content: Text(
+                                              errorMessage,
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            duration: Duration(
+                                              milliseconds: 1200,
+                                            ),
+                                          ),
+                                        )
+                                        .closed
+                                        .then((_) {
+                                          change();
+                                        });
+                                  }
                                 }
-                                if (!mounted) return;
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    backgroundColor: Colors.red,
-                                    content: Text(
-                                      errorMessage,
-                                      style: TextStyle(color: Colors.white),
-                                    ),
-                                    duration: Duration(milliseconds: 1500),
+                              },
+                              child: Container(
+                                alignment: Alignment.center,
+                                width: double.infinity,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                  color: Colors.deepPurple[400],
+                                  border: Border.all(
+                                    width: 2,
+                                    color: Colors.black,
                                   ),
-                                );
-                              }
-                            }
-                          },
-                          child: Container(
-                            alignment: Alignment.center,
-                            width: double.infinity,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.deepPurple[400],
-                              border: Border.all(width: 2, color: Colors.black),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Text(
-                              "Login",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Text(
+                                  "Login",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 18,
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
 
                         SizedBox(height: 15),
 

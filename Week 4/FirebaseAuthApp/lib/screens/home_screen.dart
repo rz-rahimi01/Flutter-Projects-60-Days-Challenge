@@ -17,7 +17,11 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     email = user?.email ?? "No Email";
-    name = user?.displayName ?? "No Name Provided";
+    final rawName = user?.displayName;
+    name =
+        (rawName == null || rawName.trim().isEmpty)
+            ? "No Name Provided"
+            : rawName;
   }
 
   @override
