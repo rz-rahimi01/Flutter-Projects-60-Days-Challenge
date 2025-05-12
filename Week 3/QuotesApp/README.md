@@ -97,12 +97,3 @@ This week’s goal was to build a clean and dynamic **Quotes App** to explore na
 - Testing and documenting projects before uploading.
 
 ---
-
-## 🚀 How to Run This App
-
-```bash
-git clone https://github.com/YOUR_USERNAME/flutter-projects-60day-challenge.git
-cd Week\ 3/QuotesApp
-flutter pub get
-flutter run
-```

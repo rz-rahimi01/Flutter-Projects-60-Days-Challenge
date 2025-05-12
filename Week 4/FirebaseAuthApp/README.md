@@ -92,12 +92,3 @@ This week’s goal was to build a **basic authentication flow** using Firebase. 
 - Ensuring clean app architecture and file structure.
 
 ---
-
-## 🚀 How to Run This App
-
-```bash
-git clone https://github.com/YOUR_USERNAME/flutter-projects-60day-challenge.git
-cd Week\ 4/FirebaseAuthApp
-flutter pub get
-flutter run
-```

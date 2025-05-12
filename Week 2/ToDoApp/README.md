@@ -76,12 +76,3 @@ This week, I focused on creating a **To-Do List App** to practice user input, ma
 - Pushing structured project updates to GitHub with documentation.
 
 ---
-
-## 🚀 How to Run This App
-
-```bash
-git clone https://github.com/YOUR_USERNAME/flutter-projects-60day-challenge.git
-cd Week\ 2/ToDoApp
-flutter pub get
-flutter run
-```

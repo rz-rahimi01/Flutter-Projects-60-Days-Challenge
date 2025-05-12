@@ -7,17 +7,6 @@ Each week covers a new project with focused learning goals, and all source code 
 
 ---
 
-## 🧰 How to Run Any Week's Project
-
-```bash
-git clone https://github.com/YOUR_USERNAME/flutter-projects-60day-challenge.git
-cd Week\ X/ProjectName
-flutter pub get
-flutter run
-```
----
-
-
 ## 🔄 Daily Code Updates
 
 I commit my code **daily**, even before the final version is ready.  
@@ -29,14 +18,17 @@ By the end of the week, each project will be complete, with screenshots and docu
 
 - **Flutter**: UI SDK for building natively compiled apps.
 - **Dart**: Language used to write Flutter apps.
-- 🔜 Firebase, Provider, Firestore (in later weeks)
+- **High Level:** Firebase, Provider, Firestore (in later weeks)
 
 ---
 
 ## 📬 Contact
+- Email: [gmail](mailto:rz.rahimi01@gmail.com)
+- Linkedin: [rz-rahimi01](https://www.linkedin.com/in/rz-rahimi01/)
+- Instagram: [rz_rahimi01](https://instagram.com/rz_rahimi01)
+- X ( Twitter ): [rz_rahimi01](https://x.com/rz_rahimi01)
+- GitHub: [rz-rahimi01](https://github.com/rz-rahimi01)
 
-- GitHub: [@rz-rahimi01](https://github.com/rz-rahimi01)
-- Instagram: [@rz_rahimi01](https://instagram.com/rz_rahimi01)
 
 ---
 
@@ -47,10 +39,8 @@ By the end of the week, each project will be complete, with screenshots and docu
 | Week 1 | [Profile Card UI](./Week%201/ProfileCardUI) | Dart, widgets, layout, styling | Completed ✅ |
 | Week 2 | [To Do App](./Week%202/ToDoApp) | Text input, ListView, setState, Provider | Completed ✅ |
 | Week 3 | [Quotes App](./Week%203/QuotesApp) | Navigation, theme toggle, Provider | Completed ✅ |
-| 🔜 Week 4 | [Firebase Auth App](./Week%204/FirebaseAuthApp) | Firebase basics, Provider | In Progress |
-| Week 5–8 | Expense Tracker App | Full App: Auth, Firestore, CRUD, charts, UI | Upcoming |
-| Week 9 | Polish & Deploy | Testing, Deployment, GitHub Docs | Upcoming |
-
+|  Week 4 | [Firebase Auth App](./Week%204/FirebaseAuthApp) | Firebase basics, Provider | Completed ✅ |
+|🔜 Week 5 | [Expense Tracker App](./Week%205/ExpenseTrackerApp) | Auth, Firestore, CRUD, Provider, UI | In Progress |
 ---
 ## 📌 Week 1 – Profile Card UI
 
@@ -103,6 +93,22 @@ By the end of the week, each project will be complete, with screenshots and docu
 
 📂 Project Folder: [`Week 4/FirebaseAuthApp`](./Week%204/FirebaseAuthApp)  
 📖 Detailed Progress: See [Week 4 README](./Week%204/FirebaseAuthApp/README.md)
+
+
+---
+
+---
+## 📌 Week 5 – Expense Tracker App
+
+**Goal:** Build a fully functional Expense Tracker app with Firebase Firestore integration and clean state management using Provider. The app should allow users to add, view, and delete expenses with a polished, responsive UI.
+
+### 🖼️ Output Screenshot
+| Expense Tracker App |
+|-----------------|
+| <img src="./Outputs/Week 5.png" width="200" height="400" /> |
+
+📂 Project Folder: [`Week 5/ExpenseTrackerApp`](./Week%205/ExpenseTrackerApp)  
+📖 Detailed Progress: See [Week 5 README](./Week%205/ExpenseTrackerApp/README.md)
 
 
 ---
