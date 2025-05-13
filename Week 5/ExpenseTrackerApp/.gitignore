@@ -43,3 +43,38 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# Flutter/Dart/Pub
+.dart_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+.pub-cache/
+build/
+.idea/
+.vscode/
+*.iml
+
+# Firebase (Android)
+android/app/google-services.json
+
+# Firebase (iOS)
+ios/Runner/GoogleService-Info.plist
+
+# Xcode
+ios/Pods/
+ios/Podfile.lock
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/engine/
+ios/.dart_tool/
+
+# Mac-specific
+.DS_Store
+
+ios/Runner/GoogleService-Info.plist

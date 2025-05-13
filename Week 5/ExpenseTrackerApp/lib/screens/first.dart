@@ -1,4 +1,7 @@
+import 'package:expensetracker/models/expenses.dart';
+import 'package:expensetracker/providers/expense_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class First extends StatefulWidget {
   const First({super.key});
@@ -38,25 +41,48 @@ class _FirstState extends State<First> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(),
-        child: ListView.separated(
-          separatorBuilder: (context, index) {
-            return Divider(indent: 20, endIndent: 20, color: Colors.black);
-          },
-          itemCount: dummyexpenses.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(
-                " ${dummyexpenses[index].keys.first} : ${dummyexpenses[index].values.first.toString()}",
-                style: TextStyle(fontSize: 25),
-              ),
+        child: Consumer<ExpensePro>(
+          builder: (context, value, child) {
+            return ListView.separated(
+              separatorBuilder: (context, index) {
+                return Divider(indent: 20, endIndent: 20, color: Colors.black);
+              },
+              itemCount: value.myexpense.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(
+                    value.myexpense[index].title.toString(),
+                    style: TextStyle(fontSize: 25),
+                  ),
+                  subtitle: Text(
+                    value.myexpense[index].date.toString(),
+                  ), // 👈 access date
+                  trailing: Text(
+                    '\$${value.myexpense[index].amount}',
+                  ), // 👈 access amount
+                );
+              },
             );
           },
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.deepOrange,
-        child: Icon(Icons.add, color: Colors.white, size: 30),
+      floatingActionButton: Consumer<ExpensePro>(
+        builder: (context, value, child) {
+          return FloatingActionButton(
+            onPressed: () {
+              value.add(
+                Expenses(
+                  title: "Dummy",
+                  amount: 2,
+                  date: DateTime.now(),
+                  id: "Dummy",
+                ),
+              );
+            },
+            backgroundColor: Colors.deepOrange,
+            child: Icon(Icons.add, color: Colors.white, size: 30),
+          );
+        },
       ),
     );
   }
