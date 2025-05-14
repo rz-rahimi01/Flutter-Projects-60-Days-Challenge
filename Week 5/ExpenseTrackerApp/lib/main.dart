@@ -1,4 +1,5 @@
 import 'package:expensetracker/providers/expense_provider.dart';
+import 'package:expensetracker/providers/modalsheet_viewer.dart';
 import 'package:expensetracker/screens/first.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized;
   Firebase.initializeApp;
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ExpensePro(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ExpensePro()),
+
+        ChangeNotifierProvider(create: (context) => ModalsheetViewer()),
+      ],
       child: const MainApp(),
     ),
   );

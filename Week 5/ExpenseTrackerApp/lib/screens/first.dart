@@ -1,5 +1,5 @@
-import 'package:expensetracker/models/expenses.dart';
 import 'package:expensetracker/providers/expense_provider.dart';
+import 'package:expensetracker/widgets/modalsheet.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -51,11 +51,11 @@ class _FirstState extends State<First> {
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
-                    value.myexpense[index].title.toString(),
+                    value.myexpense[index].title,
                     style: TextStyle(fontSize: 25),
                   ),
                   subtitle: Text(
-                    value.myexpense[index].date.toString(),
+                    value.myexpense[index].date.toString().split(' ')[0],
                   ), // 👈 access date
                   trailing: Text(
                     '\$${value.myexpense[index].amount}',
@@ -70,13 +70,19 @@ class _FirstState extends State<First> {
         builder: (context, value, child) {
           return FloatingActionButton(
             onPressed: () {
-              value.add(
-                Expenses(
-                  title: "Dummy",
-                  amount: 2,
-                  date: DateTime.now(),
-                  id: "Dummy",
-                ),
+              // value.add(
+              //   Expenses(
+              //     title: "Dummy",
+              //     amount: 2,
+              //     date: DateTime.now(),
+              //     id: "Dummy",
+              //   ),
+              // );
+
+              showModalBottomSheet(
+                backgroundColor: Colors.deepOrange[100],
+                context: context,
+                builder: (context) => Modalsheet(),
               );
             },
             backgroundColor: Colors.deepOrange,
