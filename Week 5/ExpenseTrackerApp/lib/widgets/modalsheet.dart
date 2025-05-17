@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expensetracker/models/expenses.dart';
 import 'package:expensetracker/providers/expense_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,14 @@ class _ModalsheetState extends State<Modalsheet> {
   TextEditingController titlecontroller = TextEditingController();
   TextEditingController amountcontroller = TextEditingController();
   TextEditingController datecontroller = TextEditingController();
+
+  void firebaseAdd() async {
+    await FirebaseFirestore.instance.collection("entries").add({
+      "title": titlecontroller.text,
+      "amount": double.tryParse(amountcontroller.text),
+      "date": selecteddate!,
+    });
+  }
 
   DateTime? selecteddate;
   Future selectdate(BuildContext context) async {
@@ -128,6 +137,7 @@ class _ModalsheetState extends State<Modalsheet> {
                 child: ElevatedButton.icon(
                   onPressed: () {
                     valueAdd();
+                    firebaseAdd();
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(80, 40), // width, height
