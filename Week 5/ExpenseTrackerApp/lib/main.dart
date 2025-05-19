@@ -1,4 +1,5 @@
 import 'package:expensetracker/providers/expense_provider.dart';
+import 'package:expensetracker/providers/firebase_add.dart';
 import 'package:expensetracker/providers/modalsheet_viewer.dart';
 import 'package:expensetracker/screens/first.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,7 +13,7 @@ void main() async {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ExpensePro()),
-
+        ChangeNotifierProvider(create: (context) => FirebaseAdd()),
         ChangeNotifierProvider(create: (context) => ModalsheetViewer()),
       ],
       child: const MainApp(),
