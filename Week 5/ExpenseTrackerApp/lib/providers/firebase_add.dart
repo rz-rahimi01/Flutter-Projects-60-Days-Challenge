@@ -13,9 +13,8 @@ class FirebaseAdd extends ChangeNotifier {
 
       return "success";
       // Show success message, clear fields, etc.
-    } catch (e) {
-      print("🔥 Firebase Add Error: ${e.toString()}");
-      return "Unexpected error: ${e.toString()}";
+    } on FirebaseException catch (e) {
+      return e.code;
       // Show error message to user
     }
   }

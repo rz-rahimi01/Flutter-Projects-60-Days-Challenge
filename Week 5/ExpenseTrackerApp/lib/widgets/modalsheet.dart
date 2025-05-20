@@ -3,10 +3,12 @@ import 'package:expensetracker/providers/expense_provider.dart';
 import 'package:expensetracker/providers/firebase_add.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 class Modalsheet extends StatefulWidget {
-  const Modalsheet({super.key});
+  final BuildContext parentContext;
+  const Modalsheet({super.key, required this.parentContext});
 
   @override
   State<Modalsheet> createState() => _ModalsheetState();
@@ -46,9 +48,10 @@ class _ModalsheetState extends State<Modalsheet> {
   }
 
   Future<void> firebasepush() async {
+    double amount = double.tryParse(amountcontroller.text) ?? 0;
     setState(() => isloading = true); // Start loading
     final povi = Provider.of<FirebaseAdd>(context, listen: false);
-    double amount = double.tryParse(amountcontroller.text) ?? 0;
+
     String result = await povi.add(
       titlecontroller.text,
       amount,
@@ -57,19 +60,33 @@ class _ModalsheetState extends State<Modalsheet> {
 
     if (result == "success") {
       valueAdd();
-
       setState(() => isloading = false);
-
       Navigator.pop(context);
     } else {
       setState(() => isloading = false);
+      switch (result) {
+        case "permission-denied":
+          Fluttertoast.showToast(
+            msg: "You do not have permission to add data.",
+          );
+          break;
+        case "unavailable":
+          Fluttertoast.showToast(
+            msg: "Service is temporarily unavailable. Try again later.",
+          );
+          break;
+        case "unknown-error":
+          Fluttertoast.showToast(
+            msg: "An unexpected error occurred. Please try again.",
+          );
+          break;
+        default:
+          Fluttertoast.showToast(
+            msg: "Error: $result",
+          ); // fallback if new error codes show up
+      }
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Error Message $result"),
-          duration: Duration(seconds: 2),
-        ),
-      );
+      // Fluttertoast.showToast(msg: result);
     }
   }
 
@@ -108,7 +125,6 @@ class _ModalsheetState extends State<Modalsheet> {
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 10, vertical: 50),
-
         child: SingleChildScrollView(
           child: Form(
             key: formkey,
@@ -133,7 +149,7 @@ class _ModalsheetState extends State<Modalsheet> {
                     ),
                   ),
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 TextFormField(
                   controller: amountcontroller,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
@@ -164,7 +180,7 @@ class _ModalsheetState extends State<Modalsheet> {
                   ),
                 ),
 
-                SizedBox(height: 50),
+                SizedBox(height: 20),
                 TextField(
                   controller: datecontroller,
                   readOnly: true,
@@ -182,7 +198,7 @@ class _ModalsheetState extends State<Modalsheet> {
                   onTap: () => selectdate(context),
                 ),
 
-                SizedBox(height: 50),
+                SizedBox(height: 40),
                 Center(
                   child:
                       isloading

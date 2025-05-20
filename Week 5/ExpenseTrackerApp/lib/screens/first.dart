@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expensetracker/providers/expense_provider.dart';
 import 'package:expensetracker/widgets/modalsheet.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ class First extends StatefulWidget {
 }
 
 class _FirstState extends State<First> {
+  final firestoreData =
+      FirebaseFirestore.instance.collection("Entries").snapshots();
   List dummyexpenses = [
     {"Food": 40},
     {"Transportation": 25},
@@ -41,25 +44,31 @@ class _FirstState extends State<First> {
       body: Container(
         padding: EdgeInsets.symmetric(vertical: 15),
         decoration: BoxDecoration(),
-        child: Consumer<ExpensePro>(
-          builder: (context, value, child) {
+        child: StreamBuilder<QuerySnapshot>(
+          stream: firestoreData,
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snap) {
+            if (snap.connectionState == ConnectionState.waiting) {
+              return Center(child: CircularProgressIndicator());
+            }
+            if (!snap.hasData) {
+              return Center(child: Text("No Data Availible"));
+            }
+            if (snap.hasError) {
+              return Center(child: Text("Unknown Error Occured"));
+            }
             return ListView.separated(
               separatorBuilder: (context, index) {
                 return Divider(indent: 20, endIndent: 20, color: Colors.black);
               },
-              itemCount: value.myexpense.length,
+              itemCount: snap.data!.docs.length,
               itemBuilder: (context, index) {
                 return ListTile(
                   title: Text(
-                    value.myexpense[index].title,
+                    snap.data!.docs[index]["title"],
                     style: TextStyle(fontSize: 25),
                   ),
-                  subtitle: Text(
-                    value.myexpense[index].date.toString().split(' ')[0],
-                  ), // 👈 access date
-                  trailing: Text(
-                    '\$${value.myexpense[index].amount}',
-                  ), // 👈 access amount
+                  subtitle: Text(snap.data!.docs[index]["date"]),
+                  trailing: Text("\$ ${snap.data!.docs[index]["amount"]}"),
                 );
               },
             );
@@ -82,7 +91,7 @@ class _FirstState extends State<First> {
               showModalBottomSheet(
                 backgroundColor: Colors.deepOrange[100],
                 context: context,
-                builder: (context) => Modalsheet(),
+                builder: (context) => Modalsheet(parentContext: context),
               );
             },
             backgroundColor: Colors.deepOrange,
