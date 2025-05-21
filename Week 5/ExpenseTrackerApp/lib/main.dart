@@ -1,7 +1,5 @@
-import 'package:expensetracker/providers/expense_provider.dart';
 import 'package:expensetracker/providers/firebase_add.dart';
-import 'package:expensetracker/providers/modalsheet_viewer.dart';
-import 'package:expensetracker/screens/first.dart';
+import 'package:expensetracker/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,11 +10,7 @@ void main() async {
 
   runApp(
     MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => ExpensePro()),
-        ChangeNotifierProvider(create: (context) => FirebaseAdd()),
-        ChangeNotifierProvider(create: (context) => ModalsheetViewer()),
-      ],
+      providers: [ChangeNotifierProvider(create: (context) => FirebaseAdd())],
       child: const MainApp(),
     ),
   );
