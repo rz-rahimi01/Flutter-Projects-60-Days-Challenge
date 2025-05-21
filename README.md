@@ -39,8 +39,8 @@ By the end of the week, each project will be complete, with screenshots and docu
 | Week 1 | [Profile Card UI](./Week%201/ProfileCardUI) | Dart, widgets, layout, styling | Completed ✅ |
 | Week 2 | [To Do App](./Week%202/ToDoApp) | Text input, ListView, setState, Provider | Completed ✅ |
 | Week 3 | [Quotes App](./Week%203/QuotesApp) | Navigation, theme toggle, Provider | Completed ✅ |
-|  Week 4 | [Firebase Auth App](./Week%204/FirebaseAuthApp) | Firebase basics, Provider | Completed ✅ |
-|🔜 Week 5 | [Expense Tracker App](./Week%205/ExpenseTrackerApp) | Auth, Firestore, CRUD, Provider, UI | In Progress |
+| Week 4 | [Firebase Auth App](./Week%204/FirebaseAuthApp) | Firebase basics, Provider | Completed ✅ |
+| Week 5 | [Expense Tracker App](./Week%205/ExpenseTrackerApp) | Auth, Firestore, CRUD, Provider, UI |  Completed ✅ |
 ---
 ## 📌 Week 1 – Profile Card UI
 
