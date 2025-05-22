@@ -41,6 +41,7 @@ By the end of the week, each project will be complete, with screenshots and docu
 | Week 3 | [Quotes App](./Week%203/QuotesApp) | Navigation, theme toggle, Provider | Completed ✅ |
 | Week 4 | [Firebase Auth App](./Week%204/FirebaseAuthApp) | Firebase basics, Provider | Completed ✅ |
 | Week 5 | [Expense Tracker App](./Week%205/ExpenseTrackerApp) | Auth, Firestore, CRUD, Provider, UI |  Completed ✅ |
+| Week 6 | [Sentiment Journal App (AI-Powered)](./Week%206/AiSentimentApp) | Firestore, HTTP API, sentiment analysis, Lottie, responsive UI, dark mode | In Progress|
 ---
 ## 📌 Week 1 – Profile Card UI
 
@@ -109,6 +110,21 @@ By the end of the week, each project will be complete, with screenshots and docu
 
 📂 Project Folder: [`Week 5/ExpenseTrackerApp`](./Week%205/ExpenseTrackerApp)  
 📖 Detailed Progress: See [Week 5 README](./Week%205/ExpenseTrackerApp/README.md)
+
+
+---
+---
+## 📌 Week 6 – Sentiment Journal App (AI-Powered)
+
+**Goal:** Build an AI-powered Sentiment Journal app that lets users write daily entries and detects their mood using a sentiment analysis API.   Entries are stored in Firebase Firestore along with the detected sentiment. The app features responsive UI, mood-based animations with Lottie, and a clean user experience.
+
+### 🖼️ Output Screenshot
+| Ai Sentiment App |
+|-----------------|
+| <img src="./Outputs/Week 6.png" width="200" height="400" /> |
+
+📂 Project Folder: [`Week 6/AiSentimentApp`](./Week%206/AiSentimentApp)  
+📖 Detailed Progress: See [Week 6 README](./Week%206/AiSentimentApp/README.md)
 
 
 ---
