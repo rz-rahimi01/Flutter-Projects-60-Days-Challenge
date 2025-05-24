@@ -1,4 +1,4 @@
-package com.example.aisentimentapp
+package com.example.aisentimentpp
 
 import io.flutter.embedding.android.FlutterActivity
 

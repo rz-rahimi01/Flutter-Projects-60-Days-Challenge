@@ -1,6 +1,6 @@
 {
-    "name": "aisentimentapp",
-    "short_name": "aisentimentapp",
+    "name": "aisentimentpp",
+    "short_name": "aisentimentpp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
