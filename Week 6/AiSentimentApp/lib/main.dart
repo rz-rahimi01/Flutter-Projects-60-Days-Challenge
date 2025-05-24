@@ -1,19 +1,17 @@
+import 'package:aisentimentpp/providers/firebase_post.dart';
+import 'package:aisentimentpp/screens/first.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
-  runApp(const MainApp());
-}
+  await Firebase.initializeApp();
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(body: Center(child: Text('Hello World!'))),
-    );
-  }
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (_) => FirebasePost())],
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: First()),
+    ),
+  );
 }
