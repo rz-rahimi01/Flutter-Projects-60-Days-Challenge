@@ -2,6 +2,8 @@ import 'package:aisentimentpp/providers/firebase_post.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 class MoodDailog extends StatefulWidget {
   const MoodDailog({super.key});
@@ -16,6 +18,22 @@ class _MoodDailogState extends State<MoodDailog> {
   late String result;
   late String message = "";
   final TextEditingController moodcontroller = TextEditingController();
+
+  Future<void> getSentiment(String text) async {
+    final response = await http.post(
+      Uri.parse(
+        'https://api-inference.huggingface.co/models/tabularisai/multilingual-sentiment-analysis',
+      ),
+      headers: {'Authorization': '', 'Content-Type': 'application/json'},
+      body: jsonEncode({'inputs': text}),
+    );
+
+    if (response.statusCode == 200) {
+      print(jsonDecode(response.body));
+    } else {
+      print('Error: ${response.statusCode}');
+    }
+  }
 
   void sending(value) async {
     FirebasePost data = Provider.of<FirebasePost>(context, listen: false);
@@ -94,6 +112,7 @@ class _MoodDailogState extends State<MoodDailog> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
+                  getSentiment(moodcontroller.text); // Call sentiment analysis
                   isloading = true; // Set loading state
                   setState(() {}); // Update the UI to show loading
                   sending(moodcontroller.text);
