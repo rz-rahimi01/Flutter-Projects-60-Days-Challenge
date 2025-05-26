@@ -17,21 +17,7 @@ class _MoodDailogState extends State<MoodDailog> {
   late String message = "";
   final TextEditingController moodcontroller = TextEditingController();
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-
-    final sentimentApi = Provider.of<SentimentApi>(context);
-    if (sentimentApi.statusMessage != null) {
-      Flushbar(
-        message: sentimentApi.statusMessage,
-        duration: Duration(seconds: 1),
-        backgroundColor: Colors.teal,
-      ).show(context);
-    }
-  }
-
-  void sending(context, moodtext) async {
+  Future<void> sending(context, moodtext) async {
     SentimentApi data = Provider.of<SentimentApi>(context, listen: false);
     result = await data.uploadapi(context, moodcontroller.text);
   }
@@ -83,8 +69,36 @@ class _MoodDailogState extends State<MoodDailog> {
                     isloading = true;
                   });
 
-                  sending(context, moodcontroller.text); // Only one call
+                  // await sending(context, moodcontroller.text); // Only one call
 
+                  final sentimentApi = Provider.of<SentimentApi>(
+                    context,
+                    listen: false,
+                  );
+
+                  final result = await sentimentApi.uploadapi(
+                    context,
+                    moodcontroller.text,
+                  );
+                  // Immediately show sentiment received message first
+                  await Flushbar(
+                    message: "Sentiment received ✅. Now posting to Firebase...",
+                    duration: Duration(seconds: 2),
+                    backgroundColor: Colors.teal,
+                  ).show(context);
+
+                  await Future.delayed(
+                    Duration(seconds: 2),
+                  ); // Wait for first message to disappear
+
+                  // Then show the final message
+                  if (context.mounted && sentimentApi.statusMessage != null) {
+                    Flushbar(
+                      message: sentimentApi.statusMessage!,
+                      duration: Duration(seconds: 2),
+                      backgroundColor: Colors.teal,
+                    ).show(context);
+                  }
                   setState(() {
                     isloading = false;
                   });

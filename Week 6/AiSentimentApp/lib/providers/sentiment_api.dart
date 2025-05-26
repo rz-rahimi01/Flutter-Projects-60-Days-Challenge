@@ -10,6 +10,7 @@ class SentimentApi extends ChangeNotifier {
 
   void _setStatus(String msg) {
     _statusMessage = msg;
+
     notifyListeners();
   }
 
@@ -19,7 +20,6 @@ class SentimentApi extends ChangeNotifier {
         "https://api-inference.huggingface.co/models/tabularisai/multilingual-sentiment-analysis",
       ),
       headers: {
-        "Authorization": "Bearer your huggingface token",
         "Content-Type": "application/json",
       },
       body: jsonEncode({'inputs': message}),
@@ -34,9 +34,9 @@ class SentimentApi extends ChangeNotifier {
         listen: false,
       );
       // --- MODIFICATION STARTS HERE ---
-      final List<dynamic> decodedBody = jsonDecode(response.body);
+      final List decodedBody = jsonDecode(response.body);
 
-      List<dynamic> sentimentsToSend;
+      List sentimentsToSend;
 
       if (decodedBody.isNotEmpty && decodedBody[0] is List) {
         // If the response is like [[{...}]]
