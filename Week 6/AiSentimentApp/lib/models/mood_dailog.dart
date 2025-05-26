@@ -1,9 +1,7 @@
-import 'package:aisentimentpp/providers/firebase_post.dart';
+import 'package:aisentimentpp/providers/sentiment_api.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 
 class MoodDailog extends StatefulWidget {
   const MoodDailog({super.key});
@@ -19,54 +17,23 @@ class _MoodDailogState extends State<MoodDailog> {
   late String message = "";
   final TextEditingController moodcontroller = TextEditingController();
 
-  Future<void> getSentiment(String text) async {
-    final response = await http.post(
-      Uri.parse(
-        'https://api-inference.huggingface.co/models/tabularisai/multilingual-sentiment-analysis',
-      ),
-      headers: {'Authorization': '', 'Content-Type': 'application/json'},
-      body: jsonEncode({'inputs': text}),
-    );
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-    if (response.statusCode == 200) {
-      print(jsonDecode(response.body));
-    } else {
-      print('Error: ${response.statusCode}');
+    final sentimentApi = Provider.of<SentimentApi>(context);
+    if (sentimentApi.statusMessage != null) {
+      Flushbar(
+        message: sentimentApi.statusMessage,
+        duration: Duration(seconds: 1),
+        backgroundColor: Colors.teal,
+      ).show(context);
     }
   }
 
-  void sending(value) async {
-    FirebasePost data = Provider.of<FirebasePost>(context, listen: false);
-    result = await data.post(value);
-
-    switch (result) {
-      case "permission-denied":
-        message = "You do not have permission to add data.";
-        break;
-      case "unavailable":
-        message = "Service is temporarily unavailable. Try again later.";
-        break;
-      case "unknown-error":
-        message = "An unexpected error occurred. Please try again.";
-        break;
-      case "success":
-        message = "Mood posted successfully!";
-        break;
-      default:
-        message = "Error: $result";
-        break;
-    }
-
-    Flushbar(
-      message: message,
-      duration: Duration(milliseconds: 1000),
-      backgroundColor: result == "success" ? Colors.green : Colors.red,
-    ).show(context);
-    setState(() {
-      isloading = false; // Reset loading state
-    });
-
-    moodcontroller.clear(); // Clear the text field after posting
+  void sending(context, moodtext) async {
+    SentimentApi data = Provider.of<SentimentApi>(context, listen: false);
+    result = await data.uploadapi(context, moodcontroller.text);
   }
 
   @override
@@ -111,12 +78,18 @@ class _MoodDailogState extends State<MoodDailog> {
             child: SizedBox(
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  getSentiment(moodcontroller.text); // Call sentiment analysis
-                  isloading = true; // Set loading state
-                  setState(() {}); // Update the UI to show loading
-                  sending(moodcontroller.text);
+                onPressed: () async {
+                  setState(() {
+                    isloading = true;
+                  });
+
+                  sending(context, moodcontroller.text); // Only one call
+
+                  setState(() {
+                    isloading = false;
+                  });
                 },
+
                 style: ElevatedButton.styleFrom(
                   elevation: 5,
                   side: const BorderSide(color: Colors.deepPurple),

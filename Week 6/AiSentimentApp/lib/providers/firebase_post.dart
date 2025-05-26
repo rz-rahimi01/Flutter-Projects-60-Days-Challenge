@@ -2,10 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class FirebasePost extends ChangeNotifier {
-  Future<String> post(String mood) async {
+  Future<String> post(String mood, List sentiments) async {
     try {
       await FirebaseFirestore.instance.collection("moods").add({
         "MoodFeeling": mood,
+        "Sentiment": sentiments,
         "Date": DateTime.now(),
       });
 

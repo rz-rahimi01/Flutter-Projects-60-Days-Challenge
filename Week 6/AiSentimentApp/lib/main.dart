@@ -1,4 +1,5 @@
 import 'package:aisentimentpp/providers/firebase_post.dart';
+import 'package:aisentimentpp/providers/sentiment_api.dart';
 import 'package:aisentimentpp/screens/first.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,10 @@ void main() async {
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => FirebasePost())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => FirebasePost()),
+        ChangeNotifierProvider(create: (_) => SentimentApi()),
+      ],
       child: MaterialApp(debugShowCheckedModeBanner: false, home: First()),
     ),
   );
