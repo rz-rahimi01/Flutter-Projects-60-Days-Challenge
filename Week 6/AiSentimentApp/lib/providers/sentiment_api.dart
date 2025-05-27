@@ -27,9 +27,9 @@ class SentimentApi extends ChangeNotifier {
 
     if (response.statusCode == 200) {
       _setStatus("Sentiment received ✅. Now posting to Firebase...");
-      print(response.body);
 
       FirebasePost firebaseProvider = Provider.of<FirebasePost>(
+        // ignore: use_build_context_synchronously
         context,
         listen: false,
       );

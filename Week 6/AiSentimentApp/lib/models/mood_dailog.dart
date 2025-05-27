@@ -85,6 +85,7 @@ class _MoodDailogState extends State<MoodDailog> {
                     message: "Sentiment received ✅. Now posting to Firebase...",
                     duration: Duration(seconds: 2),
                     backgroundColor: Colors.teal,
+                    // ignore: use_build_context_synchronously
                   ).show(context);
 
                   await Future.delayed(
