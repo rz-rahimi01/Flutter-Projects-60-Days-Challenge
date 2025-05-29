@@ -11,16 +11,18 @@ class MoodDailog extends StatefulWidget {
 }
 
 class _MoodDailogState extends State<MoodDailog> {
-  final textkey = GlobalKey();
+  final textkey = GlobalKey<FormState>();
   bool isloading = false;
-  late String result;
+  // late String result;
   late String message = "";
   final TextEditingController moodcontroller = TextEditingController();
+  int currentlength = 0;
+  int maximumcharacters = 100;
 
-  Future<void> sending(context, moodtext) async {
-    SentimentApi data = Provider.of<SentimentApi>(context, listen: false);
-    result = await data.uploadapi(context, moodcontroller.text);
-  }
+  // Future<void> sending(context, moodtext) async {
+  //   SentimentApi data = Provider.of<SentimentApi>(context, listen: false);
+  //   result = await data.uploadapi(context, moodcontroller.text);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -39,23 +41,37 @@ class _MoodDailogState extends State<MoodDailog> {
           "How You are feeling today? \nPlease write your mood in the text field below.",
         ),
         actions: [
-          TextFormField(
+          Form(
             key: textkey,
-            controller: moodcontroller,
-            minLines: 1,
-            maxLines: 3,
-            decoration: InputDecoration(
-              filled: true, // Enables background fill
-              fillColor: Color.fromARGB(
-                255,
-                199,
-                239,
-                245,
-              ), // Soft cyan background
-              labelText: "Enter your mood",
+            child: TextFormField(
+              controller: moodcontroller,
+              validator:
+                  (value) =>
+                      value!.isEmpty
+                          ? "Please enter your mood"
+                          : null, // Validation for empty input
+              minLines: 1,
+              maxLines: 3,
+              maxLength: maximumcharacters,
+              onChanged: (value) {
+                setState(() {
+                  currentlength = value.length;
+                });
+              },
 
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+              decoration: InputDecoration(
+                filled: true, // Enables background fill
+                fillColor: Color.fromARGB(
+                  255,
+                  199,
+                  239,
+                  245,
+                ), // Soft cyan background
+                labelText: "Enter your mood",
+                counterText: "$currentlength / $maximumcharacters",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                ),
               ),
             ),
           ),
@@ -65,6 +81,10 @@ class _MoodDailogState extends State<MoodDailog> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
+                  if (!textkey.currentState!.validate()) {
+                    return;
+                  }
+
                   setState(() {
                     isloading = true;
                   });
@@ -76,38 +96,53 @@ class _MoodDailogState extends State<MoodDailog> {
                     listen: false,
                   );
 
-                  final result = await sentimentApi.uploadapi(
+                  String firebasePostResult = await sentimentApi.uploadapi(
                     context,
                     moodcontroller.text,
                   );
-                  // Immediately show sentiment received message first
-                  await Flushbar(
-                    message: "Sentiment received ✅. Now posting to Firebase...",
-                    duration: Duration(seconds: 2),
-                    backgroundColor: Colors.teal,
-                    // ignore: use_build_context_synchronously
-                  ).show(context);
-
-                  await Future.delayed(
-                    Duration(seconds: 2),
-                  ); // Wait for first message to disappear
-
-                  // Then show the final message
-                  if (context.mounted && sentimentApi.statusMessage != null) {
-                    Flushbar(
-                      message: sentimentApi.statusMessage!,
-                      duration: Duration(seconds: 2),
-                      backgroundColor: Colors.teal,
-                    ).show(context);
+                  //Immediately show sentiment received message first
+                  if (mounted) {
+                    // The Flushbar needs a context that is a descendant of the Scaffold
+                    // or MaterialApp, which MoodDailog's context is.
+                    await Flushbar(
+                      message:
+                          sentimentApi.statusMessage ??
+                          "Processing...", // Use message from provider
+                      duration: Duration(
+                        seconds: 1,
+                      ), // Increased duration slightly
+                      backgroundColor:
+                          firebasePostResult == "success"
+                              ? Colors
+                                  .green // Green for success
+                              : Colors
+                                  .teal, // Teal for other messages (or red for errors if you prefer)
+                      // ignore: use_build_context_synchronously
+                    ).show(context); // Use the dialog's context
                   }
-                  setState(() {
-                    isloading = false;
-                  });
+
+                  // Check if the operation was successful and pop the dialog
+                  if (firebasePostResult == "success") {
+                    if (mounted) {
+                      // Check if the widget is still in the tree
+                      Navigator.of(context).pop(); // Pop the dialog
+                    }
+                    // No need to set isloading = false here if we are popping
+                    return; // Exit early if popped
+                  }
+
+                  // If not successful, or if still mounted (e.g., pop didn't happen)
+                  // ensure loading state is reset.
+                  if (mounted) {
+                    setState(() {
+                      isloading = false;
+                    });
+                  }
                 },
 
                 style: ElevatedButton.styleFrom(
                   elevation: 5,
-                  side: const BorderSide(color: Colors.deepPurple),
+                  side: const BorderSide(color: Colors.black),
 
                   shadowColor: Colors.black,
                   backgroundColor: Colors.teal[200],
@@ -128,7 +163,7 @@ class _MoodDailogState extends State<MoodDailog> {
                           style: TextStyle(
                             //fontWeight: FontWeight.bold,
                             fontSize: 15,
-                            color: Colors.deepPurple,
+                            color: Colors.black,
                           ),
                         ),
               ),

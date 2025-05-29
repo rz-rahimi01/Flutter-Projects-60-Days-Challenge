@@ -15,7 +15,10 @@ class _FirstState extends State<First> {
   bool _isFabVisible = true;
 
   final firebasedata =
-      FirebaseFirestore.instance.collection("moods").snapshots();
+      FirebaseFirestore.instance
+          .collection("moods")
+          .orderBy("Date", descending: true)
+          .snapshots();
 
   // Track expanded items using their index
   final Set<int> expandedItems = {};
@@ -80,22 +83,21 @@ class _FirstState extends State<First> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.only(top: 110),
-        child: Container(
-          height: double.infinity,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                const Color.fromARGB(255, 223, 255, 252),
-                const Color.fromARGB(255, 157, 203, 198),
-                Colors.teal.shade300,
-              ],
-            ),
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              const Color.fromARGB(255, 223, 255, 252),
+              const Color.fromARGB(255, 157, 203, 198),
+              Colors.teal.shade300,
+            ],
           ),
+        ),
+        child: SafeArea(
           child: StreamBuilder<QuerySnapshot>(
             stream: firebasedata,
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snap) {
@@ -194,7 +196,7 @@ class _FirstState extends State<First> {
                         BoxShadow(
                           color: Colors.grey,
                           blurRadius: 8,
-                          offset: const Offset(0, 4),
+                          offset: const Offset(10, 5),
                         ),
                       ],
                     ),
@@ -246,10 +248,7 @@ class _FirstState extends State<First> {
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 4),
                                 child: Text(
-                                  doc["Date"].toDate().toString().substring(
-                                    0,
-                                    10,
-                                  ),
+                                  "Time: ${doc["Date"].toDate().toString().substring(11, 16)} Date: ${doc["Date"].toDate().toString().substring(0, 10)}",
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey.shade600,
