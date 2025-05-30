@@ -31,7 +31,10 @@ class _MoodDailogState extends State<MoodDailog> {
         FocusScope.of(context).unfocus(); // Dismiss keyboard on tap outside
       },
       child: AlertDialog(
-        backgroundColor: Colors.teal[50],
+        backgroundColor:
+            Theme.of(context).brightness == Brightness.dark
+                ? Colors.grey.shade800
+                : Colors.teal[50],
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
           side: BorderSide(color: Colors.deepPurple, width: 1),
@@ -60,13 +63,16 @@ class _MoodDailogState extends State<MoodDailog> {
               },
 
               decoration: InputDecoration(
-                filled: true, // Enables background fill
-                fillColor: Color.fromARGB(
-                  255,
-                  199,
-                  239,
-                  245,
-                ), // Soft cyan background
+                filled: true,
+                fillColor:
+                    Theme.of(context).brightness == Brightness.dark
+                        ? Colors.grey.shade700
+                        : Color.fromARGB(
+                          255,
+                          199,
+                          239,
+                          245,
+                        ), // Soft cyan background
                 labelText: "Enter your mood",
                 counterText: "$currentlength / $maximumcharacters",
                 border: OutlineInputBorder(
@@ -142,10 +148,17 @@ class _MoodDailogState extends State<MoodDailog> {
 
                 style: ElevatedButton.styleFrom(
                   elevation: 5,
-                  side: const BorderSide(color: Colors.black),
-
+                  side: BorderSide(
+                    color:
+                        Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white70
+                            : Colors.black,
+                  ),
+                  backgroundColor:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? Colors.teal[800]
+                          : Colors.teal[200],
                   shadowColor: Colors.black,
-                  backgroundColor: Colors.teal[200],
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -158,12 +171,15 @@ class _MoodDailogState extends State<MoodDailog> {
                             color: Colors.black,
                           ),
                         )
-                        : const Text(
+                        : Text(
                           "Post Mood",
                           style: TextStyle(
                             //fontWeight: FontWeight.bold,
                             fontSize: 15,
-                            color: Colors.black,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.white
+                                    : Colors.indigo,
                           ),
                         ),
               ),

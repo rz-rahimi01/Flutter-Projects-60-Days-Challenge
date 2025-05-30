@@ -1,7 +1,9 @@
 import 'package:aisentimentpp/models/mood_dailog.dart';
+import 'package:aisentimentpp/providers/theme_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 class First extends StatefulWidget {
   const First({super.key});
@@ -65,11 +67,25 @@ class _FirstState extends State<First> {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      backgroundColor: Colors.teal[50],
+      //  backgroundColor: Colors.teal[50],
       appBar: AppBar(
-        backgroundColor: Colors.teal,
+        actions: [
+          Icon(Icons.light_mode, color: Colors.white),
+          Consumer<ThemeProvider>(
+            builder: (context, themepro, child) {
+              return Switch(
+                value: themepro.isDarkMode,
+                onChanged: (value) {
+                  themepro.changeTheme(value);
+                },
+              );
+            },
+          ),
+          Icon(Icons.dark_mode, color: Colors.white),
+        ],
+
         elevation: 5,
-        shadowColor: Colors.black,
+
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(50)),
         ),
@@ -90,11 +106,18 @@ class _FirstState extends State<First> {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [
-              const Color.fromARGB(255, 223, 255, 252),
-              const Color.fromARGB(255, 157, 203, 198),
-              Colors.teal.shade300,
-            ],
+            colors:
+                Theme.of(context).brightness == Brightness.dark
+                    ? [
+                      Colors.grey.shade900,
+                      Colors.grey.shade800,
+                      const Color.fromARGB(255, 122, 150, 146),
+                    ]
+                    : [
+                      const Color.fromARGB(255, 223, 255, 252),
+                      const Color.fromARGB(255, 157, 203, 198),
+                      Colors.teal.shade300,
+                    ],
           ),
         ),
         child: SafeArea(
@@ -157,7 +180,10 @@ class _FirstState extends State<First> {
                         "No Moods Added Yet",
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.indigo.shade400,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.indigo.shade400,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -166,7 +192,10 @@ class _FirstState extends State<First> {
                         "Tap + to add your first mood",
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey.shade600,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : Colors.indigo.shade400,
                         ),
                       ),
                     ],
@@ -196,12 +225,13 @@ class _FirstState extends State<First> {
                         BoxShadow(
                           color: Colors.grey,
                           blurRadius: 8,
-                          offset: const Offset(10, 5),
+                          offset: const Offset(5, 2),
                         ),
                       ],
                     ),
                     child: Card(
                       elevation: 0,
+                      color: Theme.of(context).cardTheme.color,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12),
                       ),
@@ -214,10 +244,14 @@ class _FirstState extends State<First> {
                               isExpanded || !isLong
                                   ? fullText
                                   : "${fullText.substring(0, 50)}...",
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.indigo,
+                                color:
+                                    Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.white
+                                        : Colors.indigo,
                               ),
                             ),
                             if (isLong)
@@ -237,7 +271,11 @@ class _FirstState extends State<First> {
                                     isExpanded ? "See less" : "See more",
                                     style: TextStyle(
                                       fontSize: 14,
-                                      color: Colors.blue.shade700,
+                                      color:
+                                          Theme.of(context).brightness ==
+                                                  Brightness.dark
+                                              ? Colors.white
+                                              : Colors.blue.shade700,
                                       decoration: TextDecoration.underline,
                                     ),
                                   ),
@@ -251,7 +289,11 @@ class _FirstState extends State<First> {
                                   "Time: ${doc["Date"].toDate().toString().substring(11, 16)} Date: ${doc["Date"].toDate().toString().substring(0, 10)}",
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: Colors.grey.shade600,
+                                    color:
+                                        Theme.of(context).brightness ==
+                                                Brightness.dark
+                                            ? Colors.white
+                                            : Colors.grey.shade600,
                                   ),
                                 ),
                               ),
@@ -260,7 +302,11 @@ class _FirstState extends State<First> {
                             Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: Colors.teal[50],
+                                color:
+                                    Theme.of(context).brightness ==
+                                            Brightness.dark
+                                        ? Colors.grey.shade800
+                                        : Colors.teal[50],
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               padding: const EdgeInsets.all(12),
@@ -274,7 +320,11 @@ class _FirstState extends State<First> {
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w500,
-                                          color: Colors.indigo,
+                                          color:
+                                              Theme.of(context).brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.indigo,
                                         ),
                                       ),
                                       Text(
@@ -282,7 +332,11 @@ class _FirstState extends State<First> {
                                         style: TextStyle(
                                           fontSize: 30,
                                           fontWeight: FontWeight.w500,
-                                          color: Colors.indigo,
+                                          color:
+                                              Theme.of(context).brightness ==
+                                                      Brightness.dark
+                                                  ? Colors.white
+                                                  : Colors.indigo,
                                         ),
                                       ),
                                     ],
@@ -302,7 +356,13 @@ class _FirstState extends State<First> {
                                               label,
                                               style: TextStyle(
                                                 fontSize: 14,
-                                                color: Colors.grey.shade700,
+                                                color:
+                                                    Theme.of(
+                                                              context,
+                                                            ).brightness ==
+                                                            Brightness.dark
+                                                        ? Colors.white
+                                                        : Colors.grey.shade700,
                                               ),
                                             ),
                                           ),
@@ -357,9 +417,10 @@ class _FirstState extends State<First> {
               builder: (context) => const MoodDailog(),
             );
           },
-          backgroundColor: Colors.cyan[200],
+          backgroundColor:
+              Theme.of(context).floatingActionButtonTheme.backgroundColor,
           elevation: 4,
-          child: const Icon(Icons.edit_note, color: Colors.black, size: 30),
+          child: const Icon(Icons.edit_note, size: 30),
         ),
       ),
     );
