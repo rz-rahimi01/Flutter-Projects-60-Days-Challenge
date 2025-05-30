@@ -13,8 +13,8 @@ This week, I built an **AI-powered Sentiment Journal App** that allows users to 
 | 2   | Connect to AI API (Sentiment)     | HTTP, REST API, async, JSON |
 | 3   | List Entries + Filter by Mood     | ListView, DropdownButton |
 | 4   | Lottie Animations                 | lottie, conditional rendering |
-| 5   | Responsive UI + UI Polish         | MediaQuery, Card, Padding, AnimatedContainer |
-| 6   | Entry Limits + Dialogs            | AlertDialog, DateTime logic, Dismissible |
+| 5   | UI Polish         | Card, Padding,|
+| 6   | Dialogs            | AlertDialog, DateTime logic, Dismissible |
 | 7   | Final Review & Demo               | Cleanup, README, Dark Mode Toggle |
 
 ---
@@ -33,9 +33,9 @@ This week, I built an **AI-powered Sentiment Journal App** that allows users to 
 - **Challenge**: Displayed a snackbar with the detected sentiment.
 - **Packages**: http, Provider, async/await.
 
-### 📌 Day 3: Display Journal Entries + Filter by Mood
+### 📌 Day 3: Display Journal Entries 
 - Showed all entries in a scrollable list with date and emoji.
-- Added a dropdown to filter entries by sentiment.
+
 - **Challenge**: Highlighted mood with colored cards.
 - **Widgets**: ListView, Card, DropdownButton, Text.
 
@@ -45,13 +45,12 @@ This week, I built an **AI-powered Sentiment Journal App** that allows users to 
 - **Challenge**: Fade-in effect for animations.
 - **Package**: lottie, AnimatedOpacity.
 
-### 📌 Day 5: UI Polish + Responsive Layout
+### 📌 Day 5: UI Polish
 - Improved layout using padding, spacing, and Card UI.
-- Used MediaQuery to adapt UI to different screen sizes.
 - **Challenge**: Animated card color by sentiment using AnimatedContainer.
 
-### 📌 Day 6: Daily Limit + Confirmation Dialogs
-- Limited entries to 1 per day using timestamp comparison.
+### 📌 Day 6:  Confirmation Dialogs
+
 - Added confirmation dialogs before deletion.
 - **Challenge**: Added Dismissible swipe to delete.
 - **Widgets**: AlertDialog, DateTime, Dismissible.
@@ -80,7 +79,7 @@ This week, I built an **AI-powered Sentiment Journal App** that allows users to 
 | ☐     | Analyze mood using a sentiment API        |
 | ☐     | Display entries with mood indicators      |
 | ☐     | Add Lottie animations for moods           |
-| ☐     | Limit 1 entry/day + confirmation dialogs  |
+| ☐     | confirmation dialogs  |
 | ☐     | Add light/dark theme toggle               |
 | ☐     | Clean and review all code          |
 
@@ -91,10 +90,10 @@ This week, I built an **AI-powered Sentiment Journal App** that allows users to 
 - Integrating Firebase Firestore to store structured user input.
 - Making HTTP requests to an AI API for sentiment detection.
 - Using Provider for state management across async operations.
-- Displaying filtered data with ListView and DropdownButton.
+- Displaying filtered data with ListView.
 - Adding engaging Lottie animations based on logic.
 - Enhancing UX with loading indicators, alerts, and animated UI.
-- Managing date comparisons and limits using DateTime.
+- Managing date comparisons.
 - Toggling light/dark mode dynamically with Flutter theming.
 - Writing maintainable code with comments and clean architecture.
 
