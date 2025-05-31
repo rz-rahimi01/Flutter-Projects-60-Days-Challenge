@@ -139,8 +139,8 @@ By the end of the week, each project will be complete, with screenshots and docu
 |-----------------|
 | <img src="./Outputs/Week 7.png" width="200" height="400" /> |
 
-📂 Project Folder: [`Week 7/SyntaxHub`](./Week%206/SyntaxHub)  
-📖 Detailed Progress: See [Week 7 README](./Week%206/SyntaxHub/README.md)
+📂 Project Folder: [`Week 7/SyntaxHub`](./Week%207/SyntaxHub)  
+📖 Detailed Progress: See [Week 7 README](./Week%207/SyntaxHub/README.md)
 
 
 ---
