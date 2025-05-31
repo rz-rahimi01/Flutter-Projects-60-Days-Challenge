@@ -41,7 +41,9 @@ By the end of the week, each project will be complete, with screenshots and docu
 | Week 3 | [Quotes App](./Week%203/QuotesApp) | Navigation, theme toggle, Provider | Completed ✅ |
 | Week 4 | [Firebase Auth App](./Week%204/FirebaseAuthApp) | Firebase basics, Provider | Completed ✅ |
 | Week 5 | [Expense Tracker App](./Week%205/ExpenseTrackerApp) | Auth, Firestore, CRUD, Provider, UI |  Completed ✅ |
-| Week 6 | [Sentiment Journal App (AI-Powered)](./Week%206/AiSentimentApp) | Firestore, HTTP API, sentiment analysis, Lottie, responsive UI, dark mode | In Progress|
+| Week 6 | [Sentiment Journal App (AI-Powered)](./Week%206/AiSentimentApp) | Firestore, HTTP API, sentiment analysis, Lottie, responsive UI, dark mode |Completed ✅ |
+| Week 7 | [Syntax Hub App](./Week%207/SyntaxHub) | Firebase Firestore, YouTube player, dynamic course content, category filter, clean UI, bookmarks | In Progress |
+
 ---
 ## 📌 Week 1 – Profile Card UI
 
@@ -125,6 +127,20 @@ By the end of the week, each project will be complete, with screenshots and docu
 
 📂 Project Folder: [`Week 6/AiSentimentApp`](./Week%206/AiSentimentApp)  
 📖 Detailed Progress: See [Week 6 README](./Week%206/AiSentimentApp/README.md)
+
+---
+## 📌 Week 7 – Syntax Hub App
+
+**Goal:** Build an educational app where users can explore programming topics like Python, Java, and Flutter. Each topic includes curated video lessons (via embedded YouTube player), text resources, and links stored in Firebase Firestore for real-time content delivery.
+
+
+### 🖼️ Output Screenshot
+|Syntax Hub App |
+|-----------------|
+| <img src="./Outputs/Week 7.png" width="200" height="400" /> |
+
+📂 Project Folder: [`Week 7/SyntaxHub`](./Week%206/SyntaxHub)  
+📖 Detailed Progress: See [Week 7 README](./Week%206/SyntaxHub/README.md)
 
 
 ---
