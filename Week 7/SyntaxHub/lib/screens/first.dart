@@ -93,13 +93,16 @@ class _FirstState extends State<First> {
                               children: [
                                 Icon(
                                   icons[index], // Display the icon for each item
-                                  size: 40,
-                                  color: Colors.blue,
+                                  size: 50,
+                                  color: Colors.indigo,
                                 ),
                                 SizedBox(height: 15),
                                 Text(
                                   items[index], // Display the item name
-                                  style: TextStyle(fontSize: 18),
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ],
                             ),
