@@ -12,10 +12,23 @@ class Splashscreen extends StatefulWidget {
 
 class _SplashscreenState extends State<Splashscreen>
     with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+    
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(reverse: true);
+    
+    _animation = Tween<double>(begin: 0.9, end: 1.1).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(
         context,
@@ -25,6 +38,7 @@ class _SplashscreenState extends State<Splashscreen>
 
   @override
   void dispose() {
+    _controller.dispose();
     SystemChrome.setEnabledSystemUIMode(
       SystemUiMode.manual,
       overlays: SystemUiOverlay.values,
@@ -47,15 +61,17 @@ class _SplashscreenState extends State<Splashscreen>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              FontAwesomeIcons.graduationCap,
-              size: 100,
-              color: Colors.white,
+            ScaleTransition(
+              scale: _animation,
+              child: Icon(
+                FontAwesomeIcons.graduationCap,
+                size: 100,
+                color: Colors.white,
+              ),
             ),
             SizedBox(height: 10),
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 5),
-
               child: Text(
                 "Welcome to SyntaxHub",
                 style: TextStyle(
@@ -65,7 +81,6 @@ class _SplashscreenState extends State<Splashscreen>
                 ),
               ),
             ),
-
             Container(
               margin: const EdgeInsets.symmetric(horizontal: 5),
               child: Text(
