@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class VideoSelection extends StatefulWidget {
-  const VideoSelection({super.key});
+  final String title;
+  const VideoSelection({super.key, required this.title});
 
   @override
   State<VideoSelection> createState() => _VideoSelectionState();
@@ -14,7 +15,7 @@ class _VideoSelectionState extends State<VideoSelection> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Main Menu"),
+        title: Text(widget.title),
         shadowColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(

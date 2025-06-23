@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:syntaxhub/screens/video_selection.dart';
 
 class First extends StatefulWidget {
   const First({super.key});
@@ -37,7 +38,7 @@ class _FirstState extends State<First> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Main Menu"),
+        title: Text("SyntaxHub"),
         shadowColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -46,6 +47,16 @@ class _FirstState extends State<First> {
           ),
         ),
         elevation: 3,
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: Icon(FontAwesomeIcons.barsStaggered),
+            );
+          },
+        ),
       ),
       body: Container(
         child: SafeArea(
@@ -68,7 +79,7 @@ class _FirstState extends State<First> {
                   margin: EdgeInsets.symmetric(horizontal: 25),
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, // Creates 3 columns in a vertical grid
+                      crossAxisCount: 2, // Creates 2 columns in a vertical grid
                       mainAxisSpacing: 30, // Spacing between items vertically
                       crossAxisSpacing:
                           25.0, // Spacing between items horizontally
@@ -82,13 +93,18 @@ class _FirstState extends State<First> {
                         child: GestureDetector(
                           onTap: () {
                             // Handle item tap
-                            print("Tapped on ${items[index]}");
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    VideoSelection(title: items[index]),
+                              ),
+                            );
                           },
                           child: Card(
                             elevation: 5,
                             shadowColor: Colors.black,
                             child: Column(
-                              mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
@@ -120,6 +136,7 @@ class _FirstState extends State<First> {
           ),
         ),
       ),
+      drawer: Drawer(),
     );
   }
 }
