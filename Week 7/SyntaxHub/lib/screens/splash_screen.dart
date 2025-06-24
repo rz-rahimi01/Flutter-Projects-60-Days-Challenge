@@ -19,18 +19,20 @@ class _SplashscreenState extends State<Splashscreen>
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    
+
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1500),
     )..repeat(reverse: true);
-    
-    _animation = Tween<double>(begin: 0.9, end: 1.1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
-    
+
+    _animation = Tween<double>(
+      begin: 0.9,
+      end: 1.1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.of(
+        // ignore: use_build_context_synchronously
         context,
       ).pushReplacement(MaterialPageRoute(builder: (context) => const First()));
     });

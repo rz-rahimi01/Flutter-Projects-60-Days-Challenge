@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:syntaxhub/screens/about.dart';
 import 'package:syntaxhub/screens/video_selection.dart';
 
 class First extends StatefulWidget {
@@ -58,6 +59,7 @@ class _FirstState extends State<First> {
           },
         ),
       ),
+      // ignore: avoid_unnecessary_containers
       body: Container(
         child: SafeArea(
           child: SingleChildScrollView(
@@ -136,7 +138,90 @@ class _FirstState extends State<First> {
           ),
         ),
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        width: MediaQuery.of(context).size.width * 0.75,
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.indigo,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [Colors.indigo.shade700, Colors.indigo.shade400],
+                ),
+              ),
+              accountName: Text("John Doe"),
+              accountEmail: Text("john.doe@example.com"),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Text(
+                  "JD",
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: Colors.indigo.shade700,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.person, color: Colors.indigo),
+              title: Text("Profile"),
+              onTap: () {
+                Navigator.pop(context);
+                // Add profile navigation
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.video_library, color: Colors.indigo),
+              title: Text("My Courses"),
+              onTap: () {
+                Navigator.pop(context);
+                // Add courses navigation
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.download, color: Colors.indigo),
+              title: Text("Downloads"),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.history, color: Colors.indigo),
+              title: Text("Watch History"),
+              onTap: () {},
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.info, color: Colors.indigo),
+              title: Text("About Us"),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AboutUsScreen()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.star, color: Colors.indigo),
+              title: Text("Rate App"),
+              onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(Icons.share, color: Colors.indigo),
+              title: Text("Share App"),
+              onTap: () {},
+            ),
+            Divider(),
+            ListTile(
+              leading: Icon(Icons.logout, color: Colors.red),
+              title: Text("Logout", style: TextStyle(color: Colors.red)),
+              onTap: () {},
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
