@@ -2,9 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AboutUsScreen extends StatelessWidget {
+class AboutUsScreen extends StatefulWidget {
   const AboutUsScreen({super.key});
 
+  @override
+  State<AboutUsScreen> createState() => _AboutUsScreenState();
+}
+
+class _AboutUsScreenState extends State<AboutUsScreen> {
+  //website url launch function
+  Future<void> launchWebsiteUrl(urlValue) async {
+    urlValue = Uri.parse(urlValue);
+    try {
+      await launchUrl(urlValue, mode: LaunchMode.externalApplication);
+    } catch (err) {
+      //relevant error handling e.g show popup dialog stating the error
+    }
+  }
+
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,7 +149,7 @@ class AboutUsScreen extends StatelessWidget {
                               FontAwesomeIcons.linkedin,
                               color: Colors.white,
                             ),
-                            onPressed: () => _launchUrl(
+                            onPressed: () => launchWebsiteUrl(
                               'https://linkedin.com/in/rz-rahimi01',
                             ),
                           ),
@@ -151,8 +167,9 @@ class AboutUsScreen extends StatelessWidget {
                               FontAwesomeIcons.github,
                               color: Colors.white,
                             ),
-                            onPressed: () =>
-                                _launchUrl('https://github.com/rz-rahimi01'),
+                            onPressed: () => launchWebsiteUrl(
+                              'https://github.com/rz-rahimi01',
+                            ),
                           ),
                         ),
                         const SizedBox(width: 20),
@@ -169,7 +186,11 @@ class AboutUsScreen extends StatelessWidget {
                               color: Colors.white,
                             ),
                             onPressed: () =>
-                                _launchUrl('https://twitter.com/rz_rahimi01'),
+                                // _launchUrl('https://twitter.com/rz_rahimi01'),
+                                launchUrl(
+                                  Uri.parse('https://twitter.com/rz_rahimi01'),
+                                  mode: LaunchMode.externalApplication,
+                                ),
                           ),
                         ),
                       ],
@@ -234,12 +255,5 @@ class AboutUsScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Future<void> _launchUrl(String url) async {
-    final Uri uri = Uri.parse(url);
-    if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
-      throw Exception('Could not launch $url');
-    }
   }
 }
