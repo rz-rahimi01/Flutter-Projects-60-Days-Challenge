@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syntaxhub/screens/about.dart';
 import 'package:syntaxhub/screens/video_selection.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class First extends StatefulWidget {
   const First({super.key});
@@ -11,6 +12,7 @@ class First extends StatefulWidget {
 }
 
 class _FirstState extends State<First> {
+  late Uri url;
   List items = [
     "Python",
     "Java",
@@ -206,7 +208,13 @@ class _FirstState extends State<First> {
             ListTile(
               leading: Icon(Icons.star, color: Colors.indigo),
               title: Text("Rate App"),
-              onTap: () {},
+              onTap: () {
+                url = Uri.parse(
+                  'https://play.google.com/store/apps/details?id=com.example.syntaxhub',
+                );
+
+                launchUrl(url, mode: LaunchMode.externalApplication);
+              },
             ),
             ListTile(
               leading: Icon(Icons.share, color: Colors.indigo),
