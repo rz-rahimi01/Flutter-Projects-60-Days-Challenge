@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:syntaxhub/screens/about.dart';
+import 'package:syntaxhub/screens/bookmarked.dart';
 import 'package:syntaxhub/screens/video_selection.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -137,6 +138,43 @@ class _FirstState extends State<First> {
                 ),
               ],
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        top: false,
+        child: BottomAppBar(
+          color: Colors.indigo,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: Icon(Icons.home, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => First()),
+                  );
+                },
+              ),
+              IconButton(
+                icon: Icon(Icons.bookmark, color: Colors.white),
+                onPressed: () {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          Bookmarked(title: "Bookmarked Videos"),
+                    ),
+                  );
+                },
+              ),
+
+              IconButton(
+                icon: Icon(Icons.settings, color: Colors.white),
+                onPressed: () {
+                  // Handle settings button press
+                },
+              ),
+            ],
           ),
         ),
       ),

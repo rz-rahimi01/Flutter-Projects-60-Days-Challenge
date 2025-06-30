@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:syntaxhub/providers/bookmark_provider.dart';
 import 'package:syntaxhub/screens/player_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -14,6 +17,8 @@ class VideoSelection extends StatefulWidget {
 
 class _VideoSelectionState extends State<VideoSelection> {
   late Stream<QuerySnapshot> firebasedata;
+
+  final bookMark = Hive.box('bookmarks');
 
   @override
   void initState() {
@@ -123,22 +128,21 @@ class _VideoSelectionState extends State<VideoSelection> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(12),
-                      onTap: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                PLayerScreen(videoId: videoId),
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(12),
                           ),
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.vertical(
-                              top: Radius.circular(12),
-                            ),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      PLayerScreen(videoId: videoId),
+                                ),
+                              );
+                            },
                             child: Image.network(
                               YoutubePlayer.getThumbnail(videoId: videoId!),
                               width: double.infinity,
@@ -146,32 +150,46 @@ class _VideoSelectionState extends State<VideoSelection> {
                               fit: BoxFit.cover,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(12.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'Video Title',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                    ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'Video Title',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
                                   ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                Icon(
-                                  FontAwesomeIcons.bookmark,
-                                  color: Colors.indigo,
-                                  size: 20,
-                                ),
-                              ],
-                            ),
+                              ),
+                              Consumer<Bookmark>(
+                                builder: (context, mark, child) {
+                                  final isbookmarked = bookMark.containsKey(
+                                    videoId,
+                                  );
+                                  return IconButton(
+                                    onPressed: () {
+                                      mark.changeBookmark(videoId);
+                                    },
+                                    icon: Icon(
+                                      isbookmarked
+                                          ? FontAwesomeIcons.solidBookmark
+                                          : FontAwesomeIcons.bookmark,
+                                      color: Colors.indigo,
+                                      size: 20,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   );
                 },
