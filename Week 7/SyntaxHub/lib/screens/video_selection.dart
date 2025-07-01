@@ -36,14 +36,15 @@ class _VideoSelectionState extends State<VideoSelection> {
       backgroundColor: Colors.grey[100],
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        toolbarHeight: 40.0,
         title: Text(widget.title),
         shadowColor: Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(40),
-            bottomRight: Radius.circular(40),
-          ),
-        ),
+        // shape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.only(
+        //     bottomLeft: Radius.circular(40),
+        //     bottomRight: Radius.circular(40),
+        //   ),
+        // ),
         elevation: 3,
       ),
       body: SafeArea(

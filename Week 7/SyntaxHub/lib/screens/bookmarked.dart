@@ -1,10 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:syntaxhub/widgets/bottom_navigator.dart';
 import 'package:syntaxhub/providers/bookmark_provider.dart';
-import 'package:syntaxhub/screens/first.dart';
 import 'package:syntaxhub/screens/player_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -39,12 +38,13 @@ class _Bookmarked extends State<Bookmarked> {
       appBar: AppBar(
         title: Text(widget.title),
         shadowColor: Colors.black,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(40),
-            bottomRight: Radius.circular(40),
-          ),
-        ),
+        toolbarHeight: 40.0,
+        // shape: const RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.only(
+        //     bottomLeft: Radius.circular(40),
+        //     bottomRight: Radius.circular(40),
+        //   ),
+        // ),
         elevation: 3,
       ),
       body: SafeArea(
@@ -111,10 +111,10 @@ class _Bookmarked extends State<Bookmarked> {
                                   });
                                 },
                                 icon: Icon(
-                                  FontAwesomeIcons.solidBookmark,
+                                  Icons.delete,
 
-                                  color: Colors.indigo,
-                                  size: 20,
+                                  color: Colors.red,
+                                  size: 35,
                                 ),
                               );
                             },
@@ -129,43 +129,7 @@ class _Bookmarked extends State<Bookmarked> {
           ),
         ),
       ),
-      bottomNavigationBar: SafeArea(
-        top: false,
-        child: BottomAppBar(
-          color: Colors.indigo,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                icon: Icon(Icons.home, color: Colors.white),
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => First()),
-                  );
-                },
-              ),
-              IconButton(
-                icon: Icon(Icons.bookmark, color: Colors.white),
-                onPressed: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          Bookmarked(title: "Bookmarked Videos"),
-                    ),
-                  );
-                },
-              ),
-
-              IconButton(
-                icon: Icon(Icons.settings, color: Colors.white),
-                onPressed: () {
-                  // Handle settings button press
-                },
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavigatorData(),
     );
   }
 }

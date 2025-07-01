@@ -27,7 +27,8 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
       appBar: AppBar(
         title: const Text('About Us'),
         centerTitle: true,
-        elevation: 0,
+        toolbarHeight: 40.0,
+        elevation: 3,
       ),
       body: SingleChildScrollView(
         child: Padding(
