@@ -4,7 +4,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class DrawerData extends StatelessWidget {
   @override
-  const DrawerData({super.key});
+  const DrawerData({super.key, required VoidCallback toggleTheme});
 
   Widget buildComingSoonTile(IconData icon, String title) {
     return ListTile(

@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(seconds: 3),
+      duration: const Duration(seconds: 2),
       vsync: this,
     );
 
@@ -102,8 +102,8 @@ class _SplashScreenState extends State<SplashScreen>
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
-                              color: const Color.fromRGBO(255, 255, 255, 0.3),
-
+                              // ignore: deprecated_member_use
+                              color: Colors.white.withOpacity(0.3),
                               blurRadius: 20,
                               spreadRadius: 5,
                             ),

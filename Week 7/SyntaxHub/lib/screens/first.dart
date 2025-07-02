@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:syntaxhub/models/languages.dart';
+import 'package:syntaxhub/screens/notifications.dart';
 import 'package:syntaxhub/widgets/bottom_navigator.dart';
 import 'package:syntaxhub/widgets/drawer.dart';
 import 'package:syntaxhub/screens/video_selection.dart';
@@ -13,54 +14,6 @@ class First extends StatefulWidget {
 }
 
 class _FirstState extends State<First> {
-  final Map<String, List<Color>> itemGradients = {
-    "Python": [Colors.blue, Colors.yellow],
-    "Java": [Colors.orange, Colors.red],
-    "C++": [Colors.indigo, Colors.blueGrey],
-    "JavaScript": [Colors.yellow, Colors.orange],
-    "Dart": [Colors.lightBlue, Colors.blue],
-    "Ruby": [Colors.red, Colors.pink],
-    "PHP": [Colors.purple, Colors.deepPurple],
-    "Swift": [Colors.deepOrange, Colors.orangeAccent],
-    "Flutter": [Colors.cyan, Colors.blueAccent],
-  };
-
-  final List items = [
-    "Python",
-    "Java",
-    "C++",
-    "JavaScript",
-    "Dart",
-    "Ruby",
-    "PHP",
-    "Swift",
-    "Flutter",
-  ];
-
-  final List icons = [
-    FontAwesomeIcons.python,
-    FontAwesomeIcons.java,
-    FontAwesomeIcons.cuttlefish,
-    FontAwesomeIcons.js,
-    FontAwesomeIcons.dartLang,
-    FontAwesomeIcons.diamond,
-    FontAwesomeIcons.php,
-    FontAwesomeIcons.swift,
-    FontAwesomeIcons.flutter,
-  ];
-
-  final Color primaryColor = const Color(0xFF1a1a2e);
-  final Color secondaryColor = const Color(0xFF16213e);
-  final Color accentColor = const Color(0xFF0f3460);
-  final Color textColor = Colors.white;
-
-  // Pre-calculated colors with opacity
-  final Color primaryWithOpacity = const Color.fromRGBO(26, 26, 46, 0.8);
-  final Color accentWithOpacity = const Color.fromRGBO(15, 52, 96, 0.9);
-  final Color borderColor = const Color.fromRGBO(255, 255, 255, 0.1);
-  final Color shadowColor = const Color.fromRGBO(0, 0, 0, 0.3);
-  final Color textColorWithOpacity = const Color.fromRGBO(255, 255, 255, 0.9);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,7 +43,10 @@ class _FirstState extends State<First> {
           IconButton(
             icon: const Icon(Icons.notifications_outlined, color: Colors.white),
             onPressed: () {
-              // Notification logic
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotificationsScreen()),
+              );
             },
           ),
           IconButton(
@@ -149,7 +105,7 @@ class _FirstState extends State<First> {
                           crossAxisSpacing: 20,
                           childAspectRatio: 1.0,
                         ),
-                    itemCount: items.length,
+                    itemCount: proItems.length,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
@@ -157,7 +113,7 @@ class _FirstState extends State<First> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  VideoSelection(title: items[index]),
+                                  VideoSelection(title: proItems[index]),
                             ),
                           );
                         },
@@ -184,7 +140,7 @@ class _FirstState extends State<First> {
                               ShaderMask(
                                 shaderCallback: (bounds) => LinearGradient(
                                   colors:
-                                      itemGradients[items[index]] ??
+                                      itemGradients[proItems[index]] ??
                                       [Colors.grey, Colors.black],
                                   begin: Alignment.topLeft,
                                   end: Alignment.bottomRight,
@@ -197,7 +153,7 @@ class _FirstState extends State<First> {
                               ),
                               const SizedBox(height: 15),
                               Text(
-                                items[index],
+                                proItems[index],
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
@@ -220,7 +176,7 @@ class _FirstState extends State<First> {
         ),
       ),
       bottomNavigationBar: BottomNavigatorData(),
-      drawer: DrawerData(),
+      drawer: DrawerData(toggleTheme: () {}),
     );
   }
 }
