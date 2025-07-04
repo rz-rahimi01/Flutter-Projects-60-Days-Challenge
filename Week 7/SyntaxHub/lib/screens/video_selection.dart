@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:syntaxhub/providers/bookmark_provider.dart';
+import 'package:syntaxhub/providers/theme_provider.dart';
 import 'package:syntaxhub/screens/player_screen.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -32,24 +33,50 @@ class _VideoSelectionState extends State<VideoSelection> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        toolbarHeight: 40.0,
-        title: Text(widget.title),
-        shadowColor: Colors.black,
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.only(
-        //     bottomLeft: Radius.circular(40),
-        //     bottomRight: Radius.circular(40),
-        //   ),
-        // ),
-        elevation: 3,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        elevation: 0,
+        title: Text(
+          widget.title,
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
+        ),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_outlined),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+        ),
+        actions: [
+          Icon(
+            Icons.light_mode_outlined,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+          ),
+          Switch(
+            value: themeProvider.isDarkMode,
+            onChanged: (value) {
+              themeProvider.toggleTheme();
+            },
+          ),
+          Icon(
+            Icons.dark_mode_outlined,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+          ),
+        ],
+        scrolledUnderElevation: 0,
       ),
+
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4.0),
           child: StreamBuilder<QuerySnapshot>(
             stream: firebasedata,
             builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snap) {
@@ -59,13 +86,13 @@ class _VideoSelectionState extends State<VideoSelection> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircularProgressIndicator(
-                        color: Colors.indigo,
+                        color: Colors.white,
                         strokeWidth: 3,
                       ),
                       SizedBox(height: 16),
                       Text(
                         "Loading videos...",
-                        style: TextStyle(color: Colors.indigo, fontSize: 16),
+                        style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ],
                   ),
@@ -86,7 +113,7 @@ class _VideoSelectionState extends State<VideoSelection> {
                         "No Videos Available",
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.indigo.shade400,
+                          color: Colors.white,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -124,8 +151,14 @@ class _VideoSelectionState extends State<VideoSelection> {
                     snap.data!.docs[index]['videolink'],
                   );
                   return Card(
-                    elevation: 2,
-                    margin: EdgeInsets.symmetric(vertical: 8),
+                    color: Theme.of(context).brightness == Brightness.light
+                        ? Colors.white
+                        : Color(0xFF0f3460),
+                    elevation: 7,
+                    shadowColor: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
+                    //  margin: EdgeInsets.symmetric(vertical: 8),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -147,13 +180,16 @@ class _VideoSelectionState extends State<VideoSelection> {
                             child: Image.network(
                               YoutubePlayer.getThumbnail(videoId: videoId!),
                               width: double.infinity,
-                              height: 180,
+                              height: 205,
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(12.0),
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 10,
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -161,8 +197,11 @@ class _VideoSelectionState extends State<VideoSelection> {
                                 child: Text(
                                   'Video Title',
                                   style: TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w500,
                                     fontSize: 16,
+                                    color: Theme.of(
+                                      context,
+                                    ).textTheme.labelMedium?.color,
                                   ),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -181,8 +220,10 @@ class _VideoSelectionState extends State<VideoSelection> {
                                       isbookmarked
                                           ? FontAwesomeIcons.solidBookmark
                                           : FontAwesomeIcons.bookmark,
-                                      color: Colors.indigo,
-                                      size: 20,
+                                      color: Theme.of(
+                                        context,
+                                      ).textTheme.labelMedium?.color,
+                                      size: 25,
                                     ),
                                   );
                                 },

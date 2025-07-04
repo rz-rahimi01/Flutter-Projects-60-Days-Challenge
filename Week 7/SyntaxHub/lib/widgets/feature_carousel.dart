@@ -29,13 +29,19 @@ class _FeatureCarouselState extends State<FeatureCarousel> {
       'title': 'Build Projects',
       'subtitle': 'Create real-world applications with examples',
       'icon': Icons.build,
-      'gradient': [const Color(0xFF4facfe), const Color(0xFF00f2fe)],
+      'gradient': [
+        const Color.fromARGB(255, 75, 141, 198),
+        const Color.fromARGB(255, 92, 129, 131),
+      ],
     },
     {
       'title': 'Join Community',
       'subtitle': 'Connect with Experenced fellow developers',
       'icon': Icons.people,
-      'gradient': [const Color(0xFF43e97b), const Color(0xFF38f9d7)],
+      'gradient': [
+        const Color.fromARGB(255, 156, 223, 178),
+        const Color.fromARGB(255, 15, 146, 122),
+      ],
     },
   ];
 

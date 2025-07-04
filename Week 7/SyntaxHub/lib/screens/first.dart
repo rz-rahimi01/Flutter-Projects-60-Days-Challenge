@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syntaxhub/models/languages.dart';
+import 'package:syntaxhub/providers/theme_provider.dart';
 import 'package:syntaxhub/screens/notifications.dart';
-import 'package:syntaxhub/widgets/bottom_navigator.dart';
+import 'package:syntaxhub/widgets/courses_listview.dart';
 import 'package:syntaxhub/widgets/drawer.dart';
-import 'package:syntaxhub/screens/video_selection.dart';
 import 'package:syntaxhub/widgets/feature_carousel.dart';
 
 class First extends StatefulWidget {
@@ -16,23 +17,20 @@ class First extends StatefulWidget {
 class _FirstState extends State<First> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
-      extendBodyBehindAppBar: true,
       appBar: AppBar(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        elevation: 0,
         title: Text(
           'SyntaxHub',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: textColor,
-            fontSize: 22,
-          ),
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
         leading: Builder(
           builder: (context) {
             return IconButton(
-              icon: const Icon(Icons.menu, color: Colors.white),
+              icon: const Icon(Icons.menu),
               onPressed: () {
                 Scaffold.of(context).openDrawer();
               },
@@ -41,7 +39,7 @@ class _FirstState extends State<First> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_outlined, color: Colors.white),
+            icon: const Icon(Icons.notifications_outlined),
             onPressed: () {
               Navigator.push(
                 context,
@@ -49,134 +47,93 @@ class _FirstState extends State<First> {
               );
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.search, color: Colors.white),
-            onPressed: () {
-              // Search logic
+          Icon(
+            Icons.light_mode_outlined,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+          ),
+          Switch(
+            value: themeProvider.isDarkMode,
+            onChanged: (value) {
+              themeProvider.toggleTheme();
             },
           ),
+          Icon(
+            Icons.dark_mode_outlined,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+          ),
         ],
+        scrolledUnderElevation: 0,
       ),
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [primaryColor, secondaryColor],
-          ),
-        ),
-        child: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 250,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [primaryColor, secondaryColor],
-                    ),
-                  ),
-                  child: const FeatureCarousel(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 25,
-                    vertical: 15,
-                  ),
-                  child: Text(
-                    "All Categories:",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: textColorWithOpacity,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 25),
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 20,
-                          crossAxisSpacing: 20,
-                          childAspectRatio: 1.0,
-                        ),
-                    itemCount: proItems.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  VideoSelection(title: proItems[index]),
-                            ),
-                          );
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            gradient: LinearGradient(
-                              colors: [primaryWithOpacity, accentWithOpacity],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: shadowColor,
-                                blurRadius: 10,
-                                offset: const Offset(0, 4),
-                              ),
-                            ],
-                            border: Border.all(color: borderColor, width: 1),
-                          ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ShaderMask(
-                                shaderCallback: (bounds) => LinearGradient(
-                                  colors:
-                                      itemGradients[proItems[index]] ??
-                                      [Colors.grey, Colors.black],
-                                  begin: Alignment.topLeft,
-                                  end: Alignment.bottomRight,
-                                ).createShader(bounds),
-                                child: Icon(
-                                  icons[index],
-                                  size: 50,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(height: 15),
-                              Text(
-                                proItems[index],
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: textColor,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                  ),
-                ),
-                const SizedBox(height: 20),
-              ],
+      drawer: DrawerData(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Feature Carousel
+            Container(
+              height: 250,
+              decoration: const BoxDecoration(color: Colors.transparent),
+              child: const FeatureCarousel(),
             ),
-          ),
+
+            const SizedBox(height: 5),
+
+            // All Categories Section
+            Container(
+              //   padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: Theme.of(context).brightness == Brightness.dark
+                      ? [
+                          Color.fromARGB(255, 29, 72, 124),
+                          Color.fromARGB(255, 29, 72, 124),
+                        ]
+                      : [Colors.white, Colors.white],
+                ),
+                borderRadius: BorderRadius.circular(25),
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white24
+                        : Colors.black26,
+                    spreadRadius: 5,
+                    blurRadius: 5,
+                    offset: const Offset(0, -3),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 10),
+                  Texty(textdata: "Programming Languages"),
+                  CoursesListview(datainfo: programmingLanguages),
+                  Texty(textdata: "Graphics Designing"),
+                  CoursesListview(datainfo: graphicsDesigning),
+                  Texty(textdata: "Machine Learning"),
+                  CoursesListview(datainfo: machineLearningAI),
+                  Texty(textdata: "Web Development"),
+                  CoursesListview(datainfo: webDevelopment),
+                  Texty(textdata: "Mobile Development"),
+                  CoursesListview(datainfo: mobileDevelopment),
+                  Texty(textdata: "Cloud Computing"),
+                  CoursesListview(datainfo: cloudComputing),
+                  Texty(textdata: "DevOps Tools"),
+                  CoursesListview(datainfo: devOpsTools),
+                  Texty(textdata: "Database Backend"),
+                  CoursesListview(datainfo: databaseBackend),
+                  Texty(textdata: "Cyber Security"),
+                  CoursesListview(datainfo: cybersecurity),
+                  Texty(textdata: "DataScience Analytics"),
+                  CoursesListview(datainfo: dataScienceAnalytics),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
-      bottomNavigationBar: BottomNavigatorData(),
-      drawer: DrawerData(toggleTheme: () {}),
     );
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:syntaxhub/providers/theme_provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PLayerScreen extends StatefulWidget {
@@ -47,6 +49,7 @@ class _PLayerScreenState extends State<PLayerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return YoutubePlayerBuilder(
       player: YoutubePlayer(
         controller: _controller,
@@ -65,35 +68,79 @@ class _PLayerScreenState extends State<PLayerScreen> {
       ),
       builder: (context, player) {
         return Scaffold(
-          backgroundColor: Colors.black,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          // extendBodyBehindAppBar: true,
           appBar: AppBar(
-            backgroundColor: Colors.black,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
             elevation: 0,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () => Navigator.of(context).pop(),
+            title: Text(
+              "Notiifications",
+              style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
             ),
-            title: const Text(
-              "Now Playing",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
+            leading: Builder(
+              builder: (context) {
+                return IconButton(
+                  icon: const Icon(Icons.arrow_back_outlined),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                );
+              },
+            ),
+            actions: [
+              Icon(
+                Icons.light_mode_outlined,
+                color: Theme.of(context).textTheme.bodyMedium?.color,
               ),
-            ),
-            centerTitle: true,
+              Switch(
+                value: themeProvider.isDarkMode,
+                onChanged: (value) {
+                  themeProvider.toggleTheme();
+                },
+              ),
+              Icon(
+                Icons.dark_mode_outlined,
+                color: Theme.of(context).textTheme.bodyMedium?.color,
+              ),
+            ],
+            scrolledUnderElevation: 0,
           ),
+
           body: Column(
             children: [
               player,
+
+              const SizedBox(height: 10),
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.all(16.0),
+                  margin: EdgeInsets.all(5),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 15,
+                    vertical: 5,
+                  ),
                   decoration: BoxDecoration(
-                    color: Colors.grey[900],
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: Theme.of(context).brightness == Brightness.dark
+                          ? [
+                              Color.fromARGB(255, 29, 72, 124),
+                              Color.fromARGB(255, 29, 72, 124),
+                            ]
+                          : [Colors.white, Colors.white],
                     ),
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white24
+                            : Colors.black26,
+                        spreadRadius: 5,
+                        blurRadius: 5,
+                        offset: const Offset(0, -3),
+                      ),
+                    ],
                   ),
                   child: SingleChildScrollView(
                     child: Column(
@@ -101,27 +148,37 @@ class _PLayerScreenState extends State<PLayerScreen> {
                       children: [
                         Text(
                           _controller.metadata.title,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: Theme.of(
+                              context,
+                            ).textTheme.labelMedium?.color,
                             fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         const SizedBox(height: 8),
                         Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: Colors.grey[800],
-                              child: const Icon(
+                              backgroundColor: Theme.of(
+                                context,
+                              ).textTheme.labelMedium?.color,
+                              child: Icon(
                                 Icons.person,
-                                color: Colors.white,
+                                color:
+                                    Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.black
+                                    : Colors.white,
                               ),
                             ),
                             const SizedBox(width: 10),
                             Text(
                               _controller.metadata.author,
                               style: TextStyle(
-                                color: Colors.grey[300],
+                                color: Theme.of(
+                                  context,
+                                ).textTheme.labelMedium?.color,
                                 fontSize: 16,
                               ),
                             ),
@@ -136,7 +193,9 @@ class _PLayerScreenState extends State<PLayerScreen> {
                             : Text(
                                 _controller.metadata.title,
                                 style: TextStyle(
-                                  color: Colors.grey[400],
+                                  color: Theme.of(
+                                    context,
+                                  ).textTheme.labelMedium?.color,
                                   fontSize: 14,
                                 ),
                               ),

@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:syntaxhub/providers/theme_provider.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -22,29 +24,49 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () {
-            Navigator.pop(context);
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        elevation: 0,
+        title: Text(
+          "Notiifications",
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
+        ),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: const Icon(Icons.arrow_back_outlined),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            );
           },
         ),
-        title: const Text(
-          "Notfications",
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-            fontSize: 22,
+        actions: [
+          Icon(
+            Icons.light_mode_outlined,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
           ),
-        ),
-        centerTitle: true,
-        shadowColor: Colors.black,
-        backgroundColor: Colors.blueGrey,
+          Switch(
+            value: themeProvider.isDarkMode,
+            onChanged: (value) {
+              themeProvider.toggleTheme();
+            },
+          ),
+          Icon(
+            Icons.dark_mode_outlined,
+            color: Theme.of(context).textTheme.bodyMedium?.color,
+          ),
+        ],
+        scrolledUnderElevation: 0,
       ),
 
       body: Padding(
-        padding: EdgeInsetsGeometry.all(5),
+        padding: EdgeInsetsGeometry.all(2),
 
         child: StreamBuilder(
           stream: firebasedata,
@@ -57,28 +79,66 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
               separatorBuilder: (context, index) => Divider(),
               itemCount: snap.data!.docs.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundColor: Colors.blueGrey,
-                    child: Icon(Icons.notifications, color: Colors.white),
-                  ),
-                  title: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        snap.data!.docs[index]['msg'],
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
+                return Container(
+                  margin: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: Theme.of(context).brightness == Brightness.dark
+                          ? [Color(0xFF1a1a2e), Color(0xFF0f3460)]
+                          : [
+                              const Color.fromARGB(255, 180, 148, 237),
+                              Colors.deepPurpleAccent.shade100,
+                              const Color.fromARGB(255, 134, 99, 232),
+                            ],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.white24
+                            : Colors.black45,
 
-                      Text(
-                        snap.data!.docs[index]['time'].toDate().toString(),
-                        style: TextStyle(color: Colors.grey, fontSize: 12),
+                        spreadRadius: 3,
+                        blurRadius: 7,
+                        offset: const Offset(0, 3),
                       ),
                     ],
                   ),
+                  child: ListTile(
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.deepPurple.withOpacity(0.9),
+                      child: Icon(Icons.notifications, color: Colors.white),
+                    ),
+                    title: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          snap.data!.docs[index]['msg'],
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
 
-                  // subtitle: Text(snap.data!.docs[index]['message']),
+                        Text(
+                          snap.data!.docs[index]['time'].toDate().toString(),
+                          style: TextStyle(
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                ? Colors.white
+                                : Colors.white,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    // subtitle: Text(snap.data!.docs[index]['message']),
+                  ),
                 );
               },
             );

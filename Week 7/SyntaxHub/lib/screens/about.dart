@@ -25,10 +25,21 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('About Us'),
+        title: const Text(
+          'About Us',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
-        toolbarHeight: 40.0,
-        elevation: 3,
+        //toolbarHeight: 40.0,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -40,66 +51,23 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.indigo.shade50,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Column(
-                  children: [
-                    Image.asset(
-                      'assets/logo.png',
-                      height: 100,
-                      width: 100,
-                      errorBuilder: (context, error, stackTrace) => const Icon(
-                        Icons.code,
-                        size: 80,
-                        color: Colors.indigo,
-                      ),
-                    ),
-                    const SizedBox(height: 20),
-                    const Text(
-                      'SyntaxHub',
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.indigo,
-                      ),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Learn to code with our curated collection of programming tutorials',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 16, color: Colors.black87),
-                    ),
-                    const SizedBox(height: 10),
-                    const Text(
-                      'Version 1.0.0',
-                      style: TextStyle(fontSize: 14, color: Colors.grey),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 30),
-
-              // Developer Section
-              const Text(
-                'Meet Our Developer',
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.indigo,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // Developer Profile Card
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: Colors.white,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: Theme.of(context).brightness == Brightness.dark
+                        ? [Color(0xFF1a1a2e), Color(0xFF0f3460)]
+                        : [
+                            Colors.deepPurpleAccent.shade100,
+                            Colors.deepPurpleAccent,
+                          ],
+                  ),
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white24
+                          : Colors.black26,
+
                       spreadRadius: 3,
                       blurRadius: 7,
                       offset: const Offset(0, 3),
@@ -108,10 +76,100 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                 ),
                 child: Column(
                   children: [
-                    CircleAvatar(
-                      foregroundImage: AssetImage("assets/developer.jpg"),
-                      radius: 80,
-                      child: Text("Profile Photo"),
+                    Image.asset(
+                      'assets/logo.png',
+                      height: 100,
+                      width: 100,
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.code,
+                        size: 80,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Text(
+                      'SyntaxHub',
+                      style: TextStyle(
+                        fontSize: 25,
+                        //   fontWeight: FontWeight.bold,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Learn to code with our curated collection of programming tutorials',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      'Version 1.0.0',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Colors.white60,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 30),
+
+              // Developer Section
+              Text(
+                'Meet Our Developer',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).textTheme.bodyMedium?.color,
+                ),
+              ),
+              const SizedBox(height: 20),
+
+              // Developer Profile Card
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: Theme.of(context).brightness == Brightness.dark
+                        ? [Color(0xFF1a1a2e), Color(0xFF0f3460)]
+                        : [
+                            Colors.deepPurpleAccent.shade100,
+                            Colors.deepPurpleAccent,
+                          ],
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white24
+                          : Colors.black26,
+                      spreadRadius: 3,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: Colors.indigo.shade200,
+                          width: 4,
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        foregroundImage: AssetImage("assets/developer.jpg"),
+                        radius: 80,
+                        child: Text("Profile Photo"),
+                      ),
                     ),
                     const SizedBox(height: 20),
                     const Text(
@@ -122,15 +180,20 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                       ),
                     ),
                     const SizedBox(height: 5),
-                    const Text(
+                    Text(
                       'Flutter Developer',
-                      style: TextStyle(fontSize: 16, color: Colors.indigo),
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontStyle: FontStyle.italic,
+                        fontFamily: 'sans-serif',
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
+                      ),
                     ),
                     const SizedBox(height: 15),
                     const Text(
-                      'Passionate about creating beautiful and functional apps that help people learn programming skills.',
-                      textAlign: TextAlign.center,
+                      "Driven by innovation and purpose, committed to building impactful Flutter applications that shape the future of digital experiences",
                       style: TextStyle(fontSize: 16),
+                      textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 20),
 
@@ -205,24 +268,47 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
               Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: Colors.indigo.shade50,
+                  gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: Theme.of(context).brightness == Brightness.dark
+                        ? [Color(0xFF1a1a2e), Color(0xFF0f3460)]
+                        : [
+                            Colors.deepPurpleAccent,
+                            Colors.deepPurpleAccent.shade100,
+                          ],
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.white24
+                          : Colors.black26,
+
+                      spreadRadius: 3,
+                      blurRadius: 7,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Column(
-                  children: const [
+                  children: [
                     Text(
                       'Contact Us',
                       style: TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
-                        color: Colors.indigo,
+                        color: Theme.of(context).textTheme.bodyMedium?.color,
                       ),
                     ),
                     SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.email, color: Colors.indigo),
+                        Icon(
+                          Icons.email_outlined,
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                        ),
                         SizedBox(width: 10),
                         Text(
                           'rz.rahimi01@gmail.com',
@@ -234,7 +320,10 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.phone, color: Colors.indigo),
+                        Icon(
+                          Icons.phone_android_outlined,
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                        ),
                         SizedBox(width: 10),
                         Text('+92 327 5854005', style: TextStyle(fontSize: 16)),
                       ],
@@ -243,7 +332,10 @@ class _AboutUsScreenState extends State<AboutUsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.location_on, color: Colors.indigo),
+                        Icon(
+                          Icons.location_on_outlined,
+                          color: Theme.of(context).textTheme.bodyMedium?.color,
+                        ),
                         SizedBox(width: 10),
                         Text('Peshawar, Kp', style: TextStyle(fontSize: 16)),
                       ],
