@@ -144,6 +144,21 @@ By the end of the week, each project will be complete, with screenshots and docu
 
 
 ---
+## 📌 Week 8 – AI Toolkit App
+
+**Goal:** Build an AI Toolkit app that empowers users to rewrite text in various tones and generate images from prompts using AI APIs. All user-generated content is stored and retrieved in real-time using Firebase Firestore, with a clean, responsive UI and polished UX features like theming, history, and toast notifications.
+
+
+### 🖼️ Output Screenshot
+|AI Toolkit App |
+|-----------------|
+| <img src="./Outputs/Week 8.png" width="200" height="400" /> |
+
+📂 Project Folder: [`Week 8/AIToolkit`](./Week%208/AIToolkit)  
+📖 Detailed Progress: See [Week 8 README](./Week%208/AIToolkit/README.md)
+
+
+---
 
 
 ## 📄 License
