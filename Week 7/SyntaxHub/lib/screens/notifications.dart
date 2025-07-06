@@ -108,6 +108,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                   ),
                   child: ListTile(
                     leading: CircleAvatar(
+                      // ignore: deprecated_member_use
                       backgroundColor: Colors.deepPurple.withOpacity(0.9),
                       child: Icon(Icons.notifications, color: Colors.white),
                     ),
