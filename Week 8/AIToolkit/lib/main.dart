@@ -1,20 +1,25 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MainApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    await Firebase.initializeApp();
+    runApp(const MainApp(title: "true"));
+  } catch (e) {
+    runApp(const MainApp(title: "false"));
+  }
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  final String title;
+  const MainApp({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(body: Center(child: Text('Firebase initialized: $title'))),
     );
   }
 }
