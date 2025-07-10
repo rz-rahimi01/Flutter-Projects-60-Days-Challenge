@@ -1,20 +1,24 @@
+import 'package:aitoolkit/providers/firebase_upload.dart';
 import 'package:aitoolkit/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  try {
-    await Firebase.initializeApp();
-    runApp(const MainApp(title: "true"));
-  } catch (e) {
-    runApp(const MainApp(title: "false"));
-  }
+
+  await Firebase.initializeApp();
+
+  runApp(
+    MultiProvider(
+      providers: [ChangeNotifierProvider(create: (context) => FirebaseAdd())],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
-  final String title;
-  const MainApp({super.key, required this.title});
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
