@@ -1,3 +1,4 @@
+import 'package:aitoolkit/providers/api_upload.dart';
 import 'package:aitoolkit/providers/firebase_upload.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -11,35 +12,65 @@ class TextDialog extends StatefulWidget {
 }
 
 class _TextDialogState extends State<TextDialog> {
-  late Stream<QuerySnapshot> firebasedata;
+  late Stream<QuerySnapshot> apikey;
+
   bool isLoading = false;
   @override
   void initState() {
     super.initState();
-
-    firebasedata = FirebaseFirestore.instance
-        .collection("app")
-        .doc("data")
-        .collection("texts")
-        .snapshots();
   }
 
-  late String result;
-
   Future<void> push() async {
+    if (textTosend.text.trim().isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("❗ Please enter some text")));
+      return;
+    }
+
     setState(() => isLoading = true);
-    final povi = Provider.of<FirebaseAdd>(context, listen: false);
 
-    String results = await povi.upload(textTosend.text);
+    try {
+      final apiPov = Provider.of<ApiUpload>(context, listen: false);
+      List apiResults = await apiPov.sendToApi(textTosend.text, selected);
 
-    if (results == "success") {
-      setState(() {
-        isLoading = false;
-      });
+      if (apiResults[0] == "success") {
+        final apiData = apiResults[1];
+
+        final firPov = Provider.of<FirebaseAdd>(context, listen: false);
+        String firebaseResult = await firPov.upload(
+          textTosend.text,
+          selected,
+          apiData['paraphrase'],
+        );
+
+        if (firebaseResult == "success") {
+          Navigator.of(context).pop();
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("✅ Text uploaded successfully!")),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text("🔥 Firebase upload failed: $firebaseResult"),
+            ),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("🛑 API error: ${apiResults[1]}")),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text("❌ Unexpected error: $e")));
+    } finally {
+      setState(() => isLoading = false);
     }
   }
 
-  String selected = "Formal";
+  String selected = "formal";
   TextEditingController textTosend = TextEditingController();
 
   void selection(txt) {
@@ -87,27 +118,27 @@ class _TextDialogState extends State<TextDialog> {
                 children: [
                   ElevatedButton(
                     onPressed: () {
-                      selection("Formal");
+                      selection("formal");
                     },
                     child: Text("Formal"),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      selection("Frustrated");
+                      selection("cooperative");
                     },
-                    child: Text("Fustrated"),
+                    child: Text("Cooperative"),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      selection("Poetic");
+                      selection("informal");
                     },
-                    child: Text("Poetic"),
+                    child: Text("Informal"),
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      selection("Friendly");
+                      selection("pessimistic");
                     },
-                    child: Text("Friendly"),
+                    child: Text("Pessimistic"),
                   ),
                 ],
               ),
@@ -124,31 +155,22 @@ class _TextDialogState extends State<TextDialog> {
               SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
-                child: Consumer<FirebaseAdd>(
-                  builder: (context, value, add) {
-                    return ElevatedButton(
-                      onPressed: () {
-                        push();
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(
-                          255,
-                          205,
-                          175,
-                          255,
-                        ),
-                      ),
-                      child: isLoading
-                          ? CircularProgressIndicator()
-                          : Text(
-                              "Submit",
-                              style: TextStyle(
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                    );
+                child: ElevatedButton(
+                  onPressed: () async {
+                    await push();
                   },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(255, 205, 175, 255),
+                  ),
+                  child: isLoading
+                      ? CircularProgressIndicator()
+                      : Text(
+                          "Submit",
+                          style: TextStyle(
+                            color: Colors.black54,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                 ),
               ),
             ],

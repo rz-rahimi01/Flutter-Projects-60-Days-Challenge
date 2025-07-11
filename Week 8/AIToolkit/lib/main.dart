@@ -1,3 +1,4 @@
+import 'package:aitoolkit/providers/api_upload.dart';
 import 'package:aitoolkit/providers/firebase_upload.dart';
 import 'package:aitoolkit/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -11,7 +12,11 @@ void main() async {
 
   runApp(
     MultiProvider(
-      providers: [ChangeNotifierProvider(create: (context) => FirebaseAdd())],
+      providers: [
+        ChangeNotifierProvider(create: (context) => FirebaseAdd()),
+        ChangeNotifierProvider(create: (context) => ApiUpload()),
+      ],
+
       child: const MainApp(),
     ),
   );
