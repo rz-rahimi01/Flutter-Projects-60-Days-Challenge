@@ -10,8 +10,6 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body:Center(child:Text("Adding Soon
-    );
+    return Scaffold(body: Center(child: Text("Adding Soon")));
   }
 }

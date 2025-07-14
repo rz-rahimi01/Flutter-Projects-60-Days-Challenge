@@ -1,3 +1,4 @@
+import 'package:aitoolkit/screens/textwriter_details.dart';
 import 'package:aitoolkit/widgets/text_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,22 @@ class _TextwriterState extends State<Textwriter> {
                     subtitle: Text(
                       snap.data!.docs[index]['response'] ?? 'No type',
                     ),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => TextwriterDetails(
+                            userText:
+                                snap.data!.docs[index]['userText'] ?? 'No text',
+
+                            tone: snap.data!.docs[index]['tone'] ?? 'No tone',
+                            response:
+                                snap.data!.docs[index]['response'] ??
+                                'No response',
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
