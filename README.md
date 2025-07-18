@@ -10,7 +10,7 @@ Each week covers a new project with focused learning goals, and all source code 
 ## 🔄 Daily Code Updates !
 
 I commit my code **daily**, even before the final version is ready.  
-By the end of the week, each project will be complete, with screenshots and documentation.
+By the end of the week, each project will be complete as soon as possible, with screenshots and documentation.
 
 ---
 
