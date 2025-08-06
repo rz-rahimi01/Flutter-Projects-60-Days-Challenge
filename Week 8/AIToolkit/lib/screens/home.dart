@@ -14,7 +14,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 1; // Default to Text Writer tab
 
-  List<Widget> screens = [ImageGeneration(), Textwriter(), Settings()];
+  List<Widget> screens = [ImageGeneratorScreen(), Textwriter(), Settings()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(

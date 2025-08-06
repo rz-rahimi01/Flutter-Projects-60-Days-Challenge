@@ -75,7 +75,7 @@ class _PLayerScreenState extends State<PLayerScreen> {
             foregroundColor: Theme.of(context).appBarTheme.foregroundColor,
             elevation: 0,
             title: Text(
-              "Notiifications",
+              "Playing",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
             ),
             leading: Builder(
