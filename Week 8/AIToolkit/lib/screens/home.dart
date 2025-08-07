@@ -1,4 +1,3 @@
-import 'package:aitoolkit/screens/image_generation.dart';
 import 'package:aitoolkit/screens/image_generator.dart';
 import 'package:aitoolkit/screens/settings.dart';
 import 'package:aitoolkit/screens/textwriter.dart';
