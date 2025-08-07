@@ -1,5 +1,6 @@
 import 'package:aitoolkit/providers/api_upload.dart';
 import 'package:aitoolkit/providers/firebase_upload.dart';
+import 'package:aitoolkit/providers/image_api_upload.dart';
 import 'package:aitoolkit/screens/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => FirebaseAdd()),
         ChangeNotifierProvider(create: (context) => ApiUpload()),
+        ChangeNotifierProvider(create: (context) => ImageApiUpload()),
       ],
 
       child: const MainApp(),

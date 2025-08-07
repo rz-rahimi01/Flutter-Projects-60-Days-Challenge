@@ -1,4 +1,5 @@
 import 'package:aitoolkit/screens/image_generation.dart';
+import 'package:aitoolkit/screens/image_generator.dart';
 import 'package:aitoolkit/screens/settings.dart';
 import 'package:aitoolkit/screens/textwriter.dart';
 import 'package:aitoolkit/widgets/bottombar.dart';
@@ -14,7 +15,7 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   int _currentIndex = 1; // Default to Text Writer tab
 
-  List<Widget> screens = [ImageGeneratorScreen(), Textwriter(), Settings()];
+  List<Widget> screens = [ImageGenerator(), Textwriter(), Settings()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
