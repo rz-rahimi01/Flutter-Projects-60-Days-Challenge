@@ -12,6 +12,7 @@ class Textwriter extends StatefulWidget {
 
 class _TextwriterState extends State<Textwriter> {
   late Stream<QuerySnapshot> firebasedata;
+
   @override
   void initState() {
     super.initState();
@@ -26,7 +27,7 @@ class _TextwriterState extends State<Textwriter> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: StreamBuilder<QuerySnapshot>(
           stream: firebasedata,
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snap) {
@@ -36,13 +37,15 @@ class _TextwriterState extends State<Textwriter> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     CircularProgressIndicator(
-                      color: Colors.white,
+                      color: Theme.of(context).primaryColor,
                       strokeWidth: 3,
                     ),
-                    SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     Text(
-                      "Loading data...",
-                      style: TextStyle(color: Colors.white, fontSize: 16),
+                      "Loading your content...",
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Colors.grey[600],
+                      ),
                     ),
                   ],
                 ),
@@ -50,62 +53,120 @@ class _TextwriterState extends State<Textwriter> {
             }
 
             if (snap.hasError) {
-              return Center(child: Text("Error: ${snap.error}"));
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.error_outline, color: Colors.red, size: 48),
+                    const SizedBox(height: 16),
+                    Text(
+                      "Error loading data",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    Text(
+                      snap.error.toString(),
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                  ],
+                ),
+              );
             }
 
             if (!snap.hasData || snap.data!.docs.isEmpty) {
-              return Center(child: Text("No data available"));
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.note_add_outlined,
+                      size: 64,
+                      color: Colors.grey[400],
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      "No content yet",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
+                    Text(
+                      "Tap the + button to create your first text",
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+                    ),
+                  ],
+                ),
+              );
             }
 
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: ListView.separated(
-                separatorBuilder: (context, index) => Divider(),
-                itemCount: snap.data!.docs.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
+            return ListView.separated(
+              physics: const BouncingScrollPhysics(),
+              separatorBuilder: (context, index) => const Divider(height: 1),
+              itemCount: snap.data!.docs.length,
+              itemBuilder: (context, index) {
+                final doc = snap.data!.docs[index];
+                return Card(
+                  margin: const EdgeInsets.symmetric(vertical: 4),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     title: Text(
-                      snap.data!.docs[index]['userText'] ?? 'No text',
+                      doc['userText'] ?? 'No text',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    subtitle: Text(
-                      snap.data!.docs[index]['response'] ?? 'No type',
+                    subtitle: Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        doc['response'] ?? 'No type',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.grey[600],
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
+                    trailing: const Icon(Icons.chevron_right),
                     onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => TextwriterDetails(
-                            userText:
-                                snap.data!.docs[index]['userText'] ?? 'No text',
-
-                            tone: snap.data!.docs[index]['tone'] ?? 'No tone',
-                            response:
-                                snap.data!.docs[index]['response'] ??
-                                'No response',
+                            userText: doc['userText'] ?? 'No text',
+                            tone: doc['tone'] ?? 'No tone',
+                            response: doc['response'] ?? 'No response',
                           ),
                         ),
                       );
                     },
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             );
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).primaryColor,
+        elevation: 4,
         onPressed: () {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return TextDialog();
+              return const TextDialog();
             },
           );
         },
-        child: Icon(Icons.add, size: 30),
+        child: const Icon(Icons.add, size: 30, color: Colors.white),
       ),
     );
   }

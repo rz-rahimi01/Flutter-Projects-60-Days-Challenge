@@ -13,10 +13,14 @@ class ImageGenerator extends StatefulWidget {
 
 class _ImageGeneratorState extends State<ImageGenerator> {
   TextEditingController textcontroller = TextEditingController();
-  List genModels = ["FLUX.1-dev", "FLUX.1-schnell", "Stable Diffusion"];
+  Map genModels = {
+    1: ["FLUX.1-dev", "black-forest-labs/FLUX.1-dev"],
+    2: ["FLUX.1-schnell", "black-forest-labs/FLUX.1-schnell"],
+    3: ["Stable Diffusion", "stabilityai/stable-diffusion-xl-base-1.0"],
+  };
   List ratios = ["1/1", "4/3", "16/9"];
   List imageCountOptions = ["1", "2", "3", "4"];
-  String selectedModel = "FLUX.1-dev";
+  String selectedModel = "black-forest-labs/FLUX.1-dev";
   String selectedRatio = "1/1";
   String selectedCount = "1";
   List<Uint8List> images = [];
@@ -33,7 +37,7 @@ class _ImageGeneratorState extends State<ImageGenerator> {
             child: Padding(
               padding: EdgeInsets.all(5),
               child: Column(
-                mainAxisSize: MainAxisSize.max,
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   TextField(
                     controller: textcontroller,
@@ -51,12 +55,16 @@ class _ImageGeneratorState extends State<ImageGenerator> {
                         onChanged: (newvalues) {
                           setState(() {
                             selectedModel = newvalues.toString();
+                            print("Selected model: $selectedModel");
                           });
                         },
-
+                        //selected model contain values that are from valuelist[0] because we set that in the value section of DropdownMenuItem
                         items: [
-                          for (var item in genModels)
-                            DropdownMenuItem(value: item, child: Text(item)),
+                          for (var valuelist in genModels.values)
+                            DropdownMenuItem(
+                              value: valuelist[1],
+                              child: Text(valuelist[0]),
+                            ),
                         ],
                       ),
                       DropdownButton(
@@ -102,8 +110,8 @@ class _ImageGeneratorState extends State<ImageGenerator> {
                                   images.add(imageBytes);
                                 });
                               } catch (e) {
-                                // ignore: use_build_context_synchronously
                                 ScaffoldMessenger.of(
+                                  // ignore: use_build_context_synchronously
                                   context,
                                 ).showSnackBar(SnackBar(content: Text("$e")));
                               }
@@ -130,23 +138,22 @@ class _ImageGeneratorState extends State<ImageGenerator> {
 
                   SizedBox(height: 10),
 
-                  SizedBox(
-                    height: 300,
-                    child: ListView.builder(
-                      itemCount: images.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Image.memory(images[index]),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: images.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                        );
-                      },
-                    ),
+                          child: Image.memory(images[index]),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
