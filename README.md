@@ -42,7 +42,7 @@ By the end of the week, each project will be complete as soon as possible, with 
 | Week 4 | [Firebase Auth App](./Week%204/FirebaseAuthApp) | Firebase basics, Provider | Completed ✅ |
 | Week 5 | [Expense Tracker App](./Week%205/ExpenseTrackerApp) | Auth, Firestore, CRUD, Provider, UI |  Completed ✅ |
 | Week 6 | [Sentiment Journal App (AI-Powered)](./Week%206/AiSentimentApp) | Firestore, HTTP API, sentiment analysis, Lottie, responsive UI, dark mode |Completed ✅ |
-| Week 7 | [Syntax Hub App](./Week%207/SyntaxHub) | Firebase Firestore, YouTube player, dynamic course content, category filter, clean UI, bookmarks | In Progress |
+| Week 7 | [Syntax Hub App](./Week%207/SyntaxHub) | Firebase Firestore, YouTube player, dynamic course content, category filter, clean UI, bookmarks | Completed ✅ |
 
 ---
 ## 📌 Week 1 – Profile Card UI
